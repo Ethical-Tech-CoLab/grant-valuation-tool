@@ -56,10 +56,15 @@ which pre-fill the form for you to review and save.
 
 ## How scoring works
 
-`src/lib/mission.ts` holds the ETC profile — mission, focus areas, strengths,
-constraints, and the weighted scoring criteria. This is the single source of
-truth the model reads when valuing every grant. **Edit it to tune how the
-scorer judges fit.**
+`src/lib/mission.ts` holds the ETC profile — mission, focus areas (responsible
+AI, algorithmic accountability, digital equity, climate & technology, anti-human-
+trafficking tech, arts & technology, technology governance/policy, and good use
+of technology broadly), strengths, constraints, and the weighted scoring
+criteria. It also carries a `breadth` note telling the scorer ETC is
+**technology-agnostic** (AI is one tool among many; non-AI grants and private-
+sector/corporate funders are fully in scope). This is the single source of truth
+the model reads when valuing every grant. **Edit it to tune how the scorer judges
+fit.**
 
 `src/lib/scoring.ts` sends a grant plus that profile to Claude
 (`claude-opus-4-8`) and gets back a validated, structured valuation via the

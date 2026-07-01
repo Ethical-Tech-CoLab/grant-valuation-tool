@@ -5,19 +5,24 @@
 export const ETC_MISSION = {
   organization: "Ethical Tech CoLab (ETC)",
   mission:
-    "The Ethical Tech CoLab advances technology that is equitable, accountable, and human-centered. We research, prototype, and advocate for responsible AI and digital systems, and we build tools and capacity for communities and mission-driven organizations to use technology ethically.",
+    "The Ethical Tech CoLab advances the ethical, equitable, and human-centered use of technology. We research, prototype, and advocate for responsible technology — including but not limited to AI — and build tools and capacity for communities, mission-driven organizations, artists, and policymakers to use technology for the public good.",
   focusAreas: [
     "Responsible / ethical AI",
     "Algorithmic accountability and audits",
     "Digital equity and inclusion",
+    "Climate and technology",
+    "Technology to combat human trafficking",
+    "Technology for the arts and creative sector",
+    "Technology governance and policy (support for policymakers)",
+    "Good / responsible use of technology broadly",
     "Community-centered technology design",
-    "Capacity building for nonprofits and public interest tech",
-    "Tech policy and advocacy",
+    "Capacity building for nonprofits and public-interest technologists",
   ],
   strengths: [
     "Applied research with published outputs",
     "Prototyping and open-source tooling",
     "Community and stakeholder engagement",
+    "Bridges technologists, communities, artists, and policymakers",
     "Small, senior team — high-quality but limited bandwidth",
   ],
   constraints: [
@@ -25,6 +30,9 @@ export const ETC_MISSION = {
     "Prefer grants that fund staff time and applied work over pure overhead",
     "Avoid opportunities that require capabilities we do not have (e.g. large-scale clinical trials, hardware manufacturing)",
   ],
+  // Important framing for the scorer:
+  breadth:
+    "ETC is technology-agnostic. AI is one tool among many — data infrastructure, civic/digital tools, and other technologies are equally in scope. Do NOT penalize a grant simply because it is not AI-specific; judge fit against ETC's focus areas and public-interest mission. Private-sector / corporate philanthropy (e.g. Microsoft, Google.org, AWS) is welcome, not just foundations.",
   /**
    * Criteria the scorer must evaluate, with target weights. Weights are guidance
    * for the model; it returns its own per-criterion weights that should sum to ~1.

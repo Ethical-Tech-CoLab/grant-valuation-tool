@@ -51,6 +51,7 @@ function buildPrompt(grant: Grant): string {
     `Focus areas: ${m.focusAreas.join("; ")}`,
     `Strengths: ${m.strengths.join("; ")}`,
     `Constraints: ${m.constraints.join("; ")}`,
+    `Breadth: ${m.breadth}`,
     "",
     "## Evaluation criteria (score each 0-100 and assign a weight)",
     ...m.criteria.map(
