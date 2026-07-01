@@ -76,6 +76,30 @@ async function scrapeSearch(query: string): Promise<SourceContent> {
   return { content: combined, sourceUrl: results[0].url || "" };
 }
 
+// Best-effort second pass: find the funder's LinkedIn page and the people who
+// run it. Returns snippet text to fold into the model's context, or "" on error.
+async function scrapeLeadership(hint: string): Promise<string> {
+  try {
+    const data = await tavily("search", {
+      query: `${hint} foundation leadership president OR "executive director" OR CEO LinkedIn`,
+      search_depth: "advanced",
+      max_results: 5,
+      include_raw_content: false,
+    });
+    const results: Array<{ url?: string; title?: string; content?: string }> =
+      data.results ?? [];
+    if (results.length === 0) return "";
+    return [
+      data.answer ? `Leadership summary: ${data.answer}` : "",
+      ...results.map((r) => `- ${r.title} (${r.url}): ${(r.content || "").slice(0, 400)}`),
+    ]
+      .filter(Boolean)
+      .join("\n");
+  } catch {
+    return "";
+  }
+}
+
 const ProspectSchema = z.object({
   name: z.string().describe("the grant / program name"),
   funder: z.string().describe("the funding organization; empty string if unclear"),
@@ -94,6 +118,18 @@ const ProspectSchema = z.object({
   focusAreas: z
     .array(z.string())
     .describe("3-6 short topic tags describing the grant's focus"),
+  orgLinkedIn: z
+    .string()
+    .describe("the funding organization's LinkedIn company page URL, or empty string if unknown"),
+  people: z
+    .array(
+      z.object({
+        name: z.string(),
+        role: z.string().describe("their title / role at the funder, e.g. President"),
+        linkedin: z.string().describe("their LinkedIn profile URL, or empty string"),
+      }),
+    )
+    .describe("1-4 key people who run the funder or program; empty array if none found"),
   foundGrant: z
     .boolean()
     .describe("false if the page does not actually describe a fundable grant opportunity"),
@@ -118,6 +154,9 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
     ? await scrapeUrl(trimmed)
     : await scrapeSearch(trimmed);
 
+  // Second pass: enrich with the funder's LinkedIn + leadership.
+  const leadership = await scrapeLeadership(source.sourceUrl || trimmed);
+
   const client = new Anthropic();
   const response = await client.messages.parse({
     model: MODEL,
@@ -131,11 +170,12 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
       {
         role: "user",
         content: [
-          "Extract structured grant details from the web content below. If it describes multiple grants, pick the single most relevant fundable opportunity. Do not invent facts — use empty string / 0 when something is not stated.",
+          "Extract structured grant details from the web content below. If it describes multiple grants, pick the single most relevant fundable opportunity. Do not invent facts — use empty string / 0 / empty array when something is not stated.",
           source.sourceUrl ? `Source URL: ${source.sourceUrl}` : "",
           "",
-          "--- WEB CONTENT ---",
+          "--- GRANT / FUNDER CONTENT ---",
           source.content.slice(0, MAX_CONTENT_CHARS),
+          leadership ? "\n--- LEADERSHIP / LINKEDIN SEARCH ---\n" + leadership : "",
         ]
           .filter(Boolean)
           .join("\n"),
@@ -159,6 +199,8 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
       url: p.url || source.sourceUrl,
       description: p.description,
       focusAreas: p.focusAreas,
+      orgLinkedIn: p.orgLinkedIn,
+      people: p.people,
     },
   };
 }

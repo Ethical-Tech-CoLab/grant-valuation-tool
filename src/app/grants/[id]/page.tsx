@@ -8,6 +8,7 @@ import { PIPELINE_STAGES, STAGE_LABELS } from "@/lib/types";
 import { formatCurrency, formatDate, deadlineStatus } from "@/lib/format";
 import ScorePanel from "@/components/ScorePanel";
 import AwardPanel from "@/components/AwardPanel";
+import PeoplePanel from "@/components/PeoplePanel";
 
 export default function GrantDetailPage({
   params,
@@ -68,6 +69,7 @@ export default function GrantDetailPage({
             <p className="mt-1 text-slate-500">{grant.funder || "Unknown funder"}</p>
           </div>
           <button
+            type="button"
             onClick={remove}
             className="rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-500 hover:border-rose-200 hover:text-rose-600"
           >
@@ -90,6 +92,7 @@ export default function GrantDetailPage({
             Stage
           </div>
           <select
+            aria-label="Pipeline stage"
             value={grant.stage}
             onChange={(e) => setStage(e.target.value as PipelineStage)}
             className="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-900"
@@ -138,6 +141,8 @@ export default function GrantDetailPage({
           )}
         </section>
       )}
+
+      <PeoplePanel grant={grant} />
 
       <ScorePanel grant={grant} onScored={setGrant} />
 

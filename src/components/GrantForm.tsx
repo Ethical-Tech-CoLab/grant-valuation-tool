@@ -25,6 +25,22 @@ export default function GrantForm({
       .map((s) => s.trim())
       .filter(Boolean);
 
+    // One person per line: "Name — Role — https://linkedin.com/in/…"
+    // (role and LinkedIn optional; separator is — or -).
+    const people = String(form.get("people") || "")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const [name, role, linkedin] = line.split(/\s+[—-]\s+/);
+        return {
+          name: (name || "").trim(),
+          role: (role || "").trim(),
+          linkedin: (linkedin || "").trim(),
+        };
+      })
+      .filter((p) => p.name);
+
     const payload = {
       name: String(form.get("name") || ""),
       funder: String(form.get("funder") || ""),
@@ -33,6 +49,8 @@ export default function GrantForm({
       url: String(form.get("url") || ""),
       description: String(form.get("description") || ""),
       focusAreas,
+      orgLinkedIn: String(form.get("orgLinkedIn") || ""),
+      people,
     };
 
     try {
@@ -110,6 +128,28 @@ export default function GrantForm({
           name="focusAreas"
           defaultValue={(v.focusAreas ?? []).join(", ")}
           placeholder="responsible AI, digital equity"
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Organization LinkedIn URL">
+        <input
+          name="orgLinkedIn"
+          type="url"
+          defaultValue={v.orgLinkedIn ?? ""}
+          placeholder="https://www.linkedin.com/company/..."
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Key people (one per line: Name — Role — LinkedIn URL)">
+        <textarea
+          name="people"
+          rows={3}
+          defaultValue={(v.people ?? [])
+            .map((p) => [p.name, p.role, p.linkedin].filter(Boolean).join(" — "))
+            .join("\n")}
+          placeholder={"Jane Doe — Program Director — https://www.linkedin.com/in/janedoe\nJohn Smith — President"}
           className={inputClass}
         />
       </Field>

@@ -55,6 +55,14 @@ export interface ReportingRequirement {
   status: "pending" | "submitted";
 }
 
+/** A person who runs the funding organization or program. */
+export interface Person {
+  name: string;
+  role: string;
+  /** LinkedIn profile URL; empty if unknown */
+  linkedin: string;
+}
+
 /** Post-award tracking data. */
 export interface AwardTracking {
   awardedAmount: number;
@@ -74,6 +82,10 @@ export interface Grant {
   url: string;
   description: string;
   focusAreas: string[];
+  /** LinkedIn URL of the funding organization; empty if unknown */
+  orgLinkedIn: string;
+  /** Key people who run the funder / program */
+  people: Person[];
   stage: PipelineStage;
   scoring: ScoringResult | null;
   award: AwardTracking | null;
