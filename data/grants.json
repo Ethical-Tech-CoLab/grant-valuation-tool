@@ -1,0 +1,759 @@
+[
+  {
+    "id": "a1000000-0000-4000-8000-000000000001",
+    "name": "Mozilla Technology Fund — AI Auditing Tools",
+    "funder": "Mozilla Foundation",
+    "amount": 50000,
+    "deadline": "2026-10-05",
+    "url": "https://www.mozillafoundation.org/en/blog/mozilla-technology-fund-seeks-people-projects-auditing-ai-systems-with-open-source-approaches",
+    "description": "The Mozilla Technology Fund (MTF) supports projects that provide tools and resources to auditors working to create greater accountability for AI systems. Winners contribute to the Open Source Audit Tooling (OAT) Initiative (led by Mozilla Fellow Deb Raji). Mozilla defines 'audit tools' broadly: benchmarks/datasets, analysis tools, crowdsourcing tools, documentation templates, and frameworks. Applications typically open in a September–October window each cycle; all outputs must be open source.",
+    "focusAreas": ["algorithmic accountability", "AI auditing", "open source", "AI transparency"],
+    "orgLinkedIn": "https://www.linkedin.com/company/mozilla-foundation",
+    "people": [
+      { "name": "Mehan Jayasuriya", "role": "Senior Program Officer, Mozilla Technology Fund", "linkedin": "" },
+      { "name": "Deborah Raji", "role": "Mozilla Fellow — Open Source Audit Tooling (OAT) lead", "linkedin": "" },
+      { "name": "Abeba Birhane", "role": "AI accountability researcher, Mozilla", "linkedin": "" }
+    ],
+    "logistics": {
+      "decisionTimeline": "Two-stage (LOI → invited full application via Fluxx). Mozilla typically communicates decisions within ~1–2 months of the deadline — e.g. an early-October close tends to yield November notifications and contracting.",
+      "grantPeriod": "12-month cohort — monthly virtual convenings plus at least one in-person gathering (MozFest).",
+      "keyDates": [
+        { "label": "Applications typically open", "date": "2026-09-06" },
+        { "label": "Deadline (typical annual window)", "date": "2026-10-05" },
+        { "label": "Decisions communicated (est.)", "date": "2026-11-30" },
+        { "label": "12-month cohort begins", "date": null }
+      ],
+      "constraints": [
+        "All code must be released open source; content under Creative Commons",
+        "Award up to $50,000 (annual pool $300K–$500K)",
+        "Deliverable must be an AI audit tool aligned with the Open Source Audit Tooling (OAT) Initiative",
+        "Applicants generally need a working prototype and a team ready to execute over 12 months",
+        "Cohort participation required (monthly calls + MozFest convening)"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Open Source Audit Tooling (OAT) Initiative",
+        "project": "Mozilla-led community (Deb Raji, Abeba Birhane, Briana Vecchione, Ryan Steed, Victor Ojewale) building shared standards and tooling for auditing AI systems.",
+        "amount": 0,
+        "year": "2023",
+        "url": "https://www.mozillafoundation.org/en/blog/mozilla-technology-fund-seeks-people-projects-auditing-ai-systems-with-open-source-approaches",
+        "takeaway": "The community your MTF deliverable must plug into — align any ETC audit tool with OAT standards."
+      },
+      {
+        "grantee": "MTF 2023 cohort — AI audit tooling",
+        "project": "Open-source auditing tools, e.g. a crowdsourcing tool to externally inspect a platform's pricing/recommendation model, and an 'observatory' letting journalists see what content is promoted or suppressed.",
+        "amount": 50000,
+        "year": "2023",
+        "url": "",
+        "takeaway": "Model an ETC proposal on one concrete, reusable audit tool — not a broad platform."
+      },
+      {
+        "grantee": "MTF 2022 inaugural cohort",
+        "project": "Bias/transparency projects across South Africa, Japan, and the Netherlands — crowdsourcing tools measuring unfair voice-assistant outcomes and exposing social-media recommendation engines.",
+        "amount": 50000,
+        "year": "2022",
+        "url": "",
+        "takeaway": "Shows the scope MTF funds at $50K — a focused, shippable tool with a clear accountability use."
+      }
+    ],
+    "stage": "drafting",
+    "scoring": {
+      "overallScore": 85,
+      "recommendation": "pursue",
+      "winProbability": 0.45,
+      "expectedValue": 22500,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 96, "weight": 0.3, "rationale": "Funds exactly ETC's flagship: open-source tooling for auditing and holding AI systems accountable." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 78, "weight": 0.2, "rationale": "Directly funds tool-building work, though the $50K award suits a focused project rather than a large program." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 72, "weight": 0.2, "rationale": "Niche, underfunded segment where ETC's audit expertise is directly relevant; small competitive pool." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 82, "weight": 0.15, "rationale": "Lightweight application in a defined annual window; reporting is manageable." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 90, "weight": 0.15, "rationale": "Mozilla backing plus the OAT community (Deb Raji, Abeba Birhane) is a major reputation and network multiplier." }
+      ],
+      "redFlags": [
+        "Small award ($50K) relative to a full tooling project — may need to co-fund staff time",
+        "Deliverables must be open-source audit tooling aligned with the OAT Initiative"
+      ],
+      "summary": "Near-perfect fit — MTF funds exactly the open-source AI-audit tooling and algorithmic-accountability work that is ETC's core strength, with a natural home in the OAT community. The award is small, so scope a focused, high-visibility tool. Strong pursue; watch the September–October application window.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T14:00:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-24T10:00:00.000Z",
+    "updatedAt": "2026-06-30T14:00:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000002",
+    "name": "Humanity AI — Public Open Call",
+    "funder": "Humanity AI (10-foundation coalition)",
+    "amount": 500000,
+    "deadline": null,
+    "url": "https://humanityai.ai/",
+    "description": "Humanity AI is a $500M, five-year pooled philanthropic fund (Ford, MacArthur, Omidyar, Mellon, Mozilla, Doris Duke, Lumina, Kapor, Packard, and Siegel) ensuring AI is shaped by and for people. After $18M in inaugural 2026 grants ($500K each to orgs like AI Now, Data & Society, New America), the coalition is launching a ~$10M public open call in summer 2026 prioritizing communities closest to AI's impact. Focus spans democracy, security, labor/economy, education, and arts & culture. Fiscal sponsor: Rockefeller Philanthropy Advisors.",
+    "focusAreas": ["public-interest AI", "AI governance", "democracy", "community power"],
+    "orgLinkedIn": "https://www.linkedin.com/company/macarthur-foundation",
+    "people": [
+      { "name": "John Palfrey", "role": "Co-chair, Humanity AI; President, MacArthur Foundation", "linkedin": "" },
+      { "name": "Michele Lawrence Jawando", "role": "Co-chair, Humanity AI; President, Omidyar Network", "linkedin": "" }
+    ],
+    "logistics": {
+      "decisionTimeline": "Open-call review timeline not yet announced (the ~$10M public call launches summer 2026). The inaugural round moved from announcement to award over several months.",
+      "grantPeriod": "Part of a 5-year, $500M initiative; individual grant terms TBD (inaugural grants were $500K each).",
+      "keyDates": [
+        { "label": "Inaugural grants announced ($18M)", "date": "2026-05-12" },
+        { "label": "Public open call launches", "date": null },
+        { "label": "Application deadline", "date": null }
+      ],
+      "constraints": [
+        "~$10M reserved across this open call's grantees",
+        "Prioritizes organizations and communities closest to AI's impact (US focus)",
+        "Fiscal sponsor: Rockefeller Philanthropy Advisors",
+        "Highly competitive — inaugural cohort was large, established national institutions"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Data & Society Research Institute",
+        "project": "Independent research on the social implications of data-centric technologies and AI.",
+        "amount": 500000,
+        "year": "2026",
+        "url": "https://datasociety.net",
+        "takeaway": "Closest analog to ETC's applied-research work — a template for a research + public-interest proposal."
+      },
+      {
+        "grantee": "AI Now Institute",
+        "project": "Research and policy on the concentration of power in AI, focused on accountability.",
+        "amount": 500000,
+        "year": "2026",
+        "url": "https://ainowinstitute.org",
+        "takeaway": "Shows Humanity AI funds accountability-focused research ETC could partner on or emulate."
+      },
+      {
+        "grantee": "Human Rights Data Analysis Group (HRDAG)",
+        "project": "Rigorous data science applied to human-rights accountability.",
+        "amount": 500000,
+        "year": "2026",
+        "url": "https://hrdag.org",
+        "takeaway": "A model for pairing technical rigor with public-interest impact — ETC's sweet spot."
+      },
+      {
+        "grantee": "New America",
+        "project": "Public-interest technology programming and tech policy.",
+        "amount": 500000,
+        "year": "2026",
+        "url": "https://www.newamerica.org",
+        "takeaway": "Signals the institutional scale of the inaugural cohort — pitch a sharply differentiated niche."
+      }
+    ],
+    "stage": "scoring",
+    "scoring": {
+      "overallScore": 76,
+      "recommendation": "pursue",
+      "winProbability": 0.15,
+      "expectedValue": 75000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 88, "weight": 0.3, "rationale": "Public-interest AI, democracy, and community power overlap ETC strongly, though the fund's scope is broad." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 85, "weight": 0.2, "rationale": "Large, flexible grants (~$500K) can fund applied work, research, and advocacy." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 45, "weight": 0.2, "rationale": "Extremely high-profile; inaugural grantees were large national institutions — tough for a small org." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 62, "weight": 0.15, "rationale": "Open-call process likely requires a competitive full proposal; criteria still TBD." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 92, "weight": 0.15, "rationale": "A Humanity AI grant places ETC alongside the field's leaders and inside a 10-funder network." }
+      ],
+      "redFlags": [
+        "Inaugural grantees were large, established institutions (Brookings, Data & Society, AI Now) — very competitive for a small org",
+        "Open-call timing and criteria still TBD (launching summer 2026)"
+      ],
+      "summary": "Strong mission fit and enormous strategic upside — a Humanity AI grant would put ETC alongside the field's leading institutions and its 10-funder network. But the inaugural cohort skewed large and established, so realistic win odds are low. Worth a sharply differentiated, community-rooted application to the summer 2026 open call.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-29T11:00:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-22T09:00:00.000Z",
+    "updatedAt": "2026-06-29T11:00:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000003",
+    "name": "AI & Data for Social Good Grants",
+    "funder": "Patrick J. McGovern Foundation",
+    "amount": 400000,
+    "deadline": null,
+    "url": "https://www.mcgovern.org/grants",
+    "description": "PJMF is a global philanthropy advancing AI and data science for a thriving, equitable, sustainable future. 2026 grants (typically $200K–$750K) span 'Data as a Public Good', Journalism & Media, Solidarity, Climate, and Health — e.g., $250K to Public Health Watch for AI-assisted pollution accountability. PJMF largely identifies grantees proactively rather than through an open application portal.",
+    "focusAreas": ["AI for social good", "data as a public good", "digital equity"],
+    "orgLinkedIn": "https://www.linkedin.com/company/mcgovern-foundation",
+    "people": [
+      { "name": "Vilas Dhar", "role": "President & Trustee", "linkedin": "" },
+      { "name": "Nick Cain", "role": "VP, Strategy & Innovation", "linkedin": "https://www.linkedin.com/in/nickcain1" }
+    ],
+    "logistics": {
+      "decisionTimeline": "No fixed cycle — PJMF reviews on a rolling basis and largely sources grantees itself; expect a multi-month cultivation before a decision.",
+      "grantPeriod": "Typically ~1 year (varies by grant).",
+      "keyDates": [{ "label": "Rolling / proactively sourced", "date": null }],
+      "constraints": [
+        "No open application portal — access is primarily by invitation / relationship",
+        "Nonprofit organizations globally",
+        "Priorities: Data as a Public Good, Journalism & Media, Solidarity, Climate, Health"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Public Health Watch",
+        "project": "Community tools to collect and share local pollution + health data and explore AI to hold polluters accountable, feeding investigative journalism.",
+        "amount": 250000,
+        "year": "2026",
+        "url": "https://www.mcgovern.org/grants",
+        "takeaway": "Nearly ETC's model — AI for accountability plus community data. A strong template to adapt."
+      },
+      {
+        "grantee": "The Conversation US",
+        "project": "Expand expert-led AI journalism and public AI literacy at scale.",
+        "amount": 400000,
+        "year": "2026",
+        "url": "https://www.mcgovern.org/grants",
+        "takeaway": "Shows PJMF funds AI-literacy / public-education work ETC could propose."
+      },
+      {
+        "grantee": "CarbonPlan",
+        "project": "Open-source modeling infrastructure for auditable carbon-removal accountability.",
+        "amount": 500000,
+        "year": "2026",
+        "url": "https://carbonplan.org",
+        "takeaway": "'Auditable accountability infrastructure' framing maps directly onto ETC's strengths."
+      }
+    ],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 69,
+      "recommendation": "consider",
+      "winProbability": 0.2,
+      "expectedValue": 80000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 74, "weight": 0.3, "rationale": "AI-and-data-for-good overlaps ETC, but PJMF's portfolio leans health, journalism, climate, and solidarity." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 80, "weight": 0.2, "rationale": "Sizable grants ($200K–$750K) that fund staff and applied work." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 55, "weight": 0.2, "rationale": "Global pool; PJMF sources many grantees itself, so a cold approach is harder." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 55, "weight": 0.15, "rationale": "No open application portal — access depends on relationships / introductions." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 78, "weight": 0.15, "rationale": "A leading AI-for-good funder; strong network value." }
+      ],
+      "redFlags": [
+        "PJMF largely sources grantees proactively — no open application portal, so a warm introduction helps",
+        "Portfolio skews to health, journalism, climate, and 'data as a public good' — ETC's accountability/equity angle is a subset"
+      ],
+      "summary": "A major AI-for-good funder with sizable grants and clear mission overlap. The catch is access: PJMF mostly identifies grantees itself, so ETC would need a warm introduction (e.g., via Nick Cain or program staff). Pursue relationship-building — the fit is real.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-28T16:00:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-27T09:00:00.000Z",
+    "updatedAt": "2026-06-28T16:00:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000004",
+    "name": "Technology & Society Grants",
+    "funder": "Ford Foundation",
+    "amount": 250000,
+    "deadline": null,
+    "url": "https://www.fordfoundation.org/work/challenging-inequality/technology-and-society",
+    "description": "Ford's Technology and Society program backs equal access to and fair regulation of digital technology — advancing transparency, privacy, access to knowledge, and free expression, and protecting civil and human rights online. Ford also anchors the Public Interest Technology (PIT) field and co-founds Humanity AI. Ford funds by invitation/relationship rather than open calls, and is mid-leadership transition (Heather Gerken succeeds Darren Walker as President).",
+    "focusAreas": ["public interest technology", "digital rights", "privacy", "free expression"],
+    "orgLinkedIn": "https://www.linkedin.com/company/ford-foundation",
+    "people": [
+      { "name": "Heather Gerken", "role": "President (incoming)", "linkedin": "" },
+      { "name": "Darren Walker", "role": "President (outgoing)", "linkedin": "" }
+    ],
+    "logistics": {
+      "decisionTimeline": "No open cycle — funding follows relationship-building and can take months to over a year.",
+      "grantPeriod": "Often multi-year (1–3+ years).",
+      "keyDates": [{ "label": "Leadership transition — Heather Gerken becomes President", "date": null }],
+      "constraints": [
+        "No open application portal — Ford funds by invitation / relationship",
+        "Institution-scale grants; highly competitive",
+        "Mid-leadership transition may shift Technology & Society priorities"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Upturn",
+        "project": "Research + advocacy on how tech worsens racial/economic inequality; built the Benefits Tech Advocacy Hub, exposing automated systems that denied home-care benefits to up to 66% of eligible people.",
+        "amount": 0,
+        "year": "",
+        "url": "https://www.upturn.org",
+        "takeaway": "The clearest ETC analog at Ford — algorithmic accountability in public benefits. Study their research+advocacy model."
+      },
+      {
+        "grantee": "SecureDrop (Freedom of the Press Foundation)",
+        "project": "Open-source anonymous whistleblowing platform for journalists and sources.",
+        "amount": 0,
+        "year": "",
+        "url": "https://securedrop.org",
+        "takeaway": "Example of the durable open-source public-interest tooling Ford's PIT work backs."
+      },
+      {
+        "grantee": "Data & Society",
+        "project": "Independent research institute on technology's social implications (Ford was a founding funder).",
+        "amount": 0,
+        "year": "",
+        "url": "https://datasociety.net",
+        "takeaway": "Shows Ford funds applied tech-and-society research institutions."
+      }
+    ],
+    "stage": "scoring",
+    "scoring": {
+      "overallScore": 68,
+      "recommendation": "consider",
+      "winProbability": 0.12,
+      "expectedValue": 30000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 85, "weight": 0.3, "rationale": "Rights, privacy, free expression, and public-interest technology are squarely on ETC's mission." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 72, "weight": 0.2, "rationale": "Funds field-building work, though grants tend to be larger and institution-oriented." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 42, "weight": 0.2, "rationale": "Enormous prestige and demand; relationship/invitation-based selection." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 40, "weight": 0.15, "rationale": "No open application portal; access is relationship-driven and slow." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 90, "weight": 0.15, "rationale": "Ford's imprimatur is a top-tier credibility signal." }
+      ],
+      "redFlags": [
+        "No open application portal — Ford funds by invitation/relationship",
+        "Leadership transition (new president Heather Gerken) may shift program priorities",
+        "Very competitive, institution-scale grants"
+      ],
+      "summary": "Ford's Technology & Society program is squarely on-mission and Ford's imprimatur is top-tier, but Ford funds by relationship and invitation, not open calls, and is mid-leadership-transition. High strategic value, low near-term odds — build relationships through the Public Interest Technology network.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-29T15:30:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-25T09:00:00.000Z",
+    "updatedAt": "2026-06-29T15:30:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000005",
+    "name": "Technology & Society Grantmaking",
+    "funder": "Siegel Family Endowment",
+    "amount": 250000,
+    "deadline": null,
+    "url": "https://www.siegelendowment.org/",
+    "description": "Siegel Family Endowment funds work at the intersections of Learning, Workforce, and Infrastructure, aiming to understand and shape technology's impact on society through inquiry-driven grantmaking. Note: SFE does NOT accept unsolicited proposals — funding follows a 3–12 month relationship, and SFE staff often author the proposal on the grantee's behalf. Announced $14M in grants in May 2026.",
+    "focusAreas": ["technology & society", "digital infrastructure", "computing equity"],
+    "orgLinkedIn": "https://www.linkedin.com/company/siegel-family-endowment",
+    "people": [
+      { "name": "Katy Knight", "role": "President & Executive Director", "linkedin": "https://www.linkedin.com/in/katyknight" },
+      { "name": "Joshua Elder", "role": "VP & Head of Grantmaking", "linkedin": "" },
+      { "name": "John Irons", "role": "SVP & Head of Research", "linkedin": "" }
+    ],
+    "logistics": {
+      "decisionTimeline": "3–12 month relationship-building process before any decision; SFE reaches out rather than accepting applications.",
+      "grantPeriod": "Often multi-year (recent grants span 2–5 years).",
+      "keyDates": [{ "label": "Relationship-building (3–12 months)", "date": null }],
+      "constraints": [
+        "Does NOT accept unsolicited proposals — SFE staff author the proposal after a relationship forms",
+        "Focus lanes: Learning, Workforce, Infrastructure",
+        "Values networked introductions from existing grantees"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Center on Rural Innovation",
+        "project": "Building digital-economy capacity and tech ecosystems in rural communities.",
+        "amount": 6000000,
+        "year": "2025",
+        "url": "https://ruralinnovation.us",
+        "takeaway": "Siegel's community-tech / infrastructure lane — frame ETC work around infrastructure + equity."
+      },
+      {
+        "grantee": "Break Through Tech",
+        "project": "Expanding access to computing and tech careers for women and underrepresented students.",
+        "amount": 250000,
+        "year": "2025",
+        "url": "https://www.breakthroughtech.org",
+        "takeaway": "A computing-equity example at ETC's scale (~$250K) — a realistic size to target."
+      },
+      {
+        "grantee": "MIT — Siegel Family Quest for Intelligence",
+        "project": "Academic research on intelligence and its societal impact.",
+        "amount": 0,
+        "year": "",
+        "url": "",
+        "takeaway": "Signals Siegel's research bent — pair any ETC ask with a knowledge-building output."
+      }
+    ],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 57,
+      "recommendation": "consider",
+      "winProbability": 0.1,
+      "expectedValue": 25000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 68, "weight": 0.3, "rationale": "Tech-and-society mission fits, but SFE's lanes are learning, workforce, and infrastructure — ETC's accountability work is adjacent." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 65, "weight": 0.2, "rationale": "Funds mission-driven and research work, usually via multi-year relationships." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 40, "weight": 0.2, "rationale": "Small, relationship-driven funder that casts a nontraditional net." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 30, "weight": 0.15, "rationale": "Does not accept unsolicited proposals — requires months of relationship-building first." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 75, "weight": 0.15, "rationale": "Respected tech-and-society funder; good long-term relationship to cultivate." }
+      ],
+      "redFlags": [
+        "Does NOT accept unsolicited proposals — funding requires a 3–12 month relationship, and SFE staff write the proposal",
+        "Core lanes are learning, workforce, and infrastructure — ETC's accountability work is adjacent, not central"
+      ],
+      "summary": "A respected tech-and-society funder, but the hardest to access: Siegel does not take unsolicited proposals and funds through long relationships in its learning/workforce/infrastructure lanes. Treat as a long-game networking target (Katy Knight, Joshua Elder), not a near-term application.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-28T17:00:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-26T09:00:00.000Z",
+    "updatedAt": "2026-06-28T17:00:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000006",
+    "name": "AWS Imagine Grant for Nonprofits",
+    "funder": "Amazon Web Services (AWS)",
+    "amount": 200000,
+    "deadline": null,
+    "url": "https://aws.amazon.com/government-education/nonprofits/aws-imagine-grant-program",
+    "description": "An annual open call funding US 501(c) nonprofits that use technology in new or expanded ways (pilots, proofs of concept, or scaling existing programs). Three tiers: Pathfinder (up to $200K unrestricted + $100K AWS credits), Go Further Faster (up to $150K + $100K credits), Momentum to Modernize (up to $50K + $20K credits). Welcomes all mission areas and is technology-agnostic (not AI-only). 2026 Round One closed 5 June 2026 — recurring annually (portal typically opens ~March).",
+    "focusAreas": ["nonprofit technology", "unrestricted funding", "civic tech", "innovation"],
+    "orgLinkedIn": "https://www.linkedin.com/company/amazon-web-services",
+    "people": [],
+    "logistics": {
+      "decisionTimeline": "Two-round process. 2026 portal opened 19 March, Round One closed 5 June; Round One status notified by 14 July 2026. Expect ~1 month from close to advancement notice.",
+      "grantPeriod": "Project-based; unrestricted cash plus AWS credits and technical support.",
+      "keyDates": [
+        { "label": "Portal opens (2026 cycle)", "date": "2026-03-19" },
+        { "label": "Round One deadline (2026)", "date": "2026-06-05" },
+        { "label": "Round One notifications", "date": "2026-07-14" }
+      ],
+      "constraints": [
+        "US 501(c) nonprofits only; educational institutions excluded",
+        "Half the package is AWS promotional credits, not cash",
+        "Project must use technology in a new or expanded way"
+      ]
+    },
+    "fundedExamples": [],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 75,
+      "recommendation": "pursue",
+      "winProbability": 0.2,
+      "expectedValue": 40000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 80, "weight": 0.3, "rationale": "Funds public-interest technology broadly and is technology-agnostic — an ETC accountability tool or pilot fits well." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 90, "weight": 0.2, "rationale": "Up to $200K UNRESTRICTED cash plus credits and technical support — ideal for staff time and applied work." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 55, "weight": 0.2, "rationale": "Popular national program, but a concrete, well-scoped tool is a strong pitch." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 70, "weight": 0.15, "rationale": "Structured two-round application; moderate burden." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 78, "weight": 0.15, "rationale": "AWS credibility, $100K cloud credits, and Generative AI Innovation Center support." }
+      ],
+      "redFlags": [
+        "2026 Round One already closed (5 June) — plan for the next annual cycle",
+        "US 501(c) only; educational institutions excluded",
+        "Half the package is AWS credits, not cash"
+      ],
+      "summary": "One of the best private-sector fits: up to $200K in unrestricted cash plus AWS credits and technical support, open to all mission areas and technology-agnostic — ideal for funding an ETC tool or pilot. The 2026 round just closed, so target the next annual cycle.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T18:00:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-30T18:00:00.000Z",
+    "updatedAt": "2026-06-30T18:00:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000007",
+    "name": "Impact Challenge: AI for Government Innovation",
+    "funder": "Google.org",
+    "amount": 300000,
+    "deadline": null,
+    "url": "https://google.org/impact-challenges/ai-government-innovation",
+    "description": "Supports nonprofits, social enterprises, and academic institutions partnering with governments to use generative and agentic AI to transform how public services function for social good. Includes funding plus the Google.org Accelerator (pro bono Google technical expertise, training, and Cloud credits). Global eligibility. The 2026 cycle deadline was 3 April 2026 — recurring.",
+    "focusAreas": ["technology governance", "AI for public services", "govtech", "policy"],
+    "orgLinkedIn": "https://www.linkedin.com/company/google-org",
+    "people": [],
+    "logistics": {
+      "decisionTimeline": "Open call reviewed by Google.org, Google experts, and external partners (Renaissance Philanthropy, Centre for Public Impact); selected orgs join a multi-month accelerator. The 2026 cycle closed 3 April.",
+      "grantPeriod": "Grant plus a multi-month Google.org Accelerator.",
+      "keyDates": [{ "label": "2026 cycle deadline (closed)", "date": "2026-04-03" }],
+      "constraints": [
+        "Requires partnering with a government entity",
+        "Must have a clear, explicit social-impact purpose",
+        "Individuals without an organizational affiliation are ineligible"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Jacaranda Health",
+        "project": "PROMPTS, an SMS digital-health service using AI triage for 3.8M mothers across Kenya/Sub-Saharan Africa, supporting Ministries of Health with data-driven policy decisions.",
+        "amount": 0,
+        "year": "2026",
+        "url": "http://www.jacarandahealth.org/prompts",
+        "takeaway": "The winning pattern — a concrete public-service tool co-delivered with government."
+      },
+      {
+        "grantee": "Planscape (Spatial Informatics Group)",
+        "project": "AI decision-support tool using state/federal resilience data to help governments prioritize wildfire mitigation; shaped 300+ California wildfire resilience plans.",
+        "amount": 0,
+        "year": "2026",
+        "url": "https://www.planscape.org/",
+        "takeaway": "A government decision-support tool — the kind of accountable, policy-facing tool ETC could build."
+      },
+      {
+        "grantee": "GiveDirectly",
+        "project": "MobileAid: AI mobile-metadata analysis with the Government of Togo to target aid to ultra-vulnerable households during crises.",
+        "amount": 0,
+        "year": "2026",
+        "url": "https://www.givedirectly.org/mobileaid-work-in-togo/",
+        "takeaway": "Gov-partnered, ethically-sensitive data use — ETC's accountability lens is a differentiator."
+      }
+    ],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 71,
+      "recommendation": "consider",
+      "winProbability": 0.15,
+      "expectedValue": 45000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 82, "weight": 0.3, "rationale": "Directly matches ETC's 'governance & technology for policymakers' focus." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 76, "weight": 0.2, "rationale": "Grant plus technical accelerator; funds gov-partnered applied work." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 48, "weight": 0.2, "rationale": "Global, high-profile open call." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 60, "weight": 0.15, "rationale": "Needs a government partner and a competitive application." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 84, "weight": 0.15, "rationale": "Google.org network plus a pro-bono technical accelerator." }
+      ],
+      "redFlags": [
+        "Requires partnering with a government entity",
+        "2026 cycle deadline passed (3 April) — recurring; watch for next round",
+        "Very competitive global open call"
+      ],
+      "summary": "A direct match for ETC's governance-and-technology focus: funds nonprofits partnering with governments to improve public services with AI, plus a Google technical accelerator. The catch is you need a government partner and the current cycle has closed. Line up a public-sector partner and target the next round.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T18:05:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-30T18:05:00.000Z",
+    "updatedAt": "2026-06-30T18:05:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000008",
+    "name": "Combating Human Trafficking Data & Technology Impact Award",
+    "funder": "U.S. Department of Transportation (Counter-Trafficking Initiative)",
+    "amount": 100000,
+    "deadline": null,
+    "url": "https://www.transportation.gov/stop-human-trafficking/impact-award",
+    "description": "A competition recognizing the most impactful counter-trafficking initiative or technology. Entries are judged on technical merit, originality, impact, practicality, measurability, and applicability. First place up to $100,000, second up to $50,000, third up to $25,000.",
+    "focusAreas": ["anti-human-trafficking", "technology for good", "data", "public safety"],
+    "orgLinkedIn": "https://www.linkedin.com/company/us-department-of-transportation",
+    "people": [],
+    "logistics": {
+      "decisionTimeline": "Recurring award competition; winners announced after judging. Check the USDOT Counter-Trafficking Initiative page for the current cycle's dates.",
+      "grantPeriod": "One-time cash prize (non-dilutive).",
+      "keyDates": [{ "label": "Annual award cycle — check current dates", "date": null }],
+      "constraints": [
+        "A prize competition, not a project grant — rewards an existing/demonstrable tool",
+        "Requires a measurable, applicable technology solution",
+        "Judged on technical merit, impact, and practicality"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Field examples (via Tech Against Trafficking / BSR)",
+        "project": "Mobile apps to identify sex-trafficking victims; satellite imagery tracking fishing vessels carrying forced-labor victims; web-scraping tools aggregating abuse imagery to help law enforcement.",
+        "amount": 0,
+        "year": "",
+        "url": "https://techagainsttrafficking.org",
+        "takeaway": "The tool archetypes this field rewards — model an ETC entry on a concrete, measurable detection/accountability tool."
+      }
+    ],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 63,
+      "recommendation": "consider",
+      "winProbability": 0.2,
+      "expectedValue": 20000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 72, "weight": 0.3, "rationale": "Matches ETC's 'technology to combat human trafficking' focus; ethical-tech + data angle fits." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 55, "weight": 0.2, "rationale": "$100K prize, not a project grant — non-dilutive but not staff funding." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 50, "weight": 0.2, "rationale": "Open competition; needs a demonstrable counter-trafficking tool." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 68, "weight": 0.15, "rationale": "Competition entry — lighter than a full proposal." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 66, "weight": 0.15, "rationale": "Federal recognition; opens government relationships." }
+      ],
+      "redFlags": [
+        "A prize competition, not a project grant — needs an existing/demonstrable counter-trafficking tool",
+        "Requires a measurable, applicable technology solution",
+        "Domain-specific — ETC would need a trafficking-focused project ready"
+      ],
+      "summary": "A rare direct fit for ETC's anti-trafficking-technology focus, with a non-dilutive $100K first prize and federal visibility. It's a competition rather than a build grant, so it rewards an existing or near-ready tool — best pursued if ETC has (or can partner on) a demonstrable counter-trafficking data/tech solution.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T18:10:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-30T18:10:00.000Z",
+    "updatedAt": "2026-06-30T18:10:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000009",
+    "name": "Artists Make Technology (AMT)",
+    "funder": "Doris Duke Foundation (with Mozilla, Hewlett, Ford)",
+    "amount": 0,
+    "deadline": null,
+    "url": "https://www.dorisduke.org/news/doris-duke-foundation-and-mozilla-foundation-announce-usd6-5m-commitment-to-ensure-performing-artists-are-at-the-center-of-technology-innovation",
+    "description": "Announced January 2026 by the Doris Duke Foundation with Mozilla, Hewlett, and Ford ($6.5M committed toward an $11M three-year goal). AMT centers performing artists in technology innovation across three pillars: direct artist support; infrastructure building via 'AMT Pathways' (artists work with Mozilla engineers on legal/technical/institutional tools — e.g. Responsible Computing Challenge, Mozilla Common Voice); and knowledge building.",
+    "focusAreas": ["arts and technology", "creative technology", "responsible computing"],
+    "orgLinkedIn": "",
+    "people": [
+      { "name": "Sam Gill", "role": "President & CEO, Doris Duke Foundation", "linkedin": "" }
+    ],
+    "logistics": {
+      "decisionTimeline": "Program newly announced (Jan 2026); the open application path is still forming. Partnership-driven — engage program staff (Doris Duke / Mozilla) rather than waiting for an open call.",
+      "grantPeriod": "Three-year initiative; individual awards TBD.",
+      "keyDates": [{ "label": "Program announced", "date": "2026-01-07" }],
+      "constraints": [
+        "Centers performing artists — ETC fits via the 'AMT Pathways' infrastructure pillar, not as a direct artist grantee",
+        "Program still forming; open application path unclear",
+        "Likely partner/relationship-driven"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "Mozilla Common Voice",
+        "project": "Open, community-contributed voice dataset — an example of the artist/community-centered tech infrastructure AMT Pathways points to.",
+        "amount": 0,
+        "year": "",
+        "url": "https://commonvoice.mozilla.org",
+        "takeaway": "A model for community-owned tech infrastructure ETC could help artists build."
+      },
+      {
+        "grantee": "Responsible Computing Challenge",
+        "project": "Mozilla program embedding ethics into computing education — cited as an AMT Pathways vehicle.",
+        "amount": 0,
+        "year": "",
+        "url": "https://www.mozillafoundation.org",
+        "takeaway": "The responsible-computing framing that is ETC's natural entry point to AMT."
+      }
+    ],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 57,
+      "recommendation": "consider",
+      "winProbability": 0.12,
+      "expectedValue": 0,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 62, "weight": 0.3, "rationale": "Arts + technology is an ETC focus, but AMT centers performing artists specifically; ETC fits via the responsible-computing/infrastructure pillar." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 55, "weight": 0.2, "rationale": "Structured around artist support; ETC would fit as a technical/infrastructure partner." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 45, "weight": 0.2, "rationale": "Niche, relationship-driven, and newly forming." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 50, "weight": 0.15, "rationale": "No clear open application yet." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 72, "weight": 0.15, "rationale": "Mozilla / Ford / Hewlett / Doris Duke consortium — strong network." }
+      ],
+      "redFlags": [
+        "Centers performing artists — ETC fits only via the responsible-computing / infrastructure pillar",
+        "Program newly announced (Jan 2026); open application path unclear",
+        "Likely partner/relationship-driven"
+      ],
+      "summary": "The clearest arts-and-technology opportunity, backed by a Mozilla/Ford/Hewlett/Doris Duke consortium — but it centers performing artists. ETC's angle is the 'AMT Pathways' infrastructure pillar (responsible computing, artist tooling), likely as a technical partner rather than a lead grantee. Explore a Mozilla-side partnership.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T18:15:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-30T18:15:00.000Z",
+    "updatedAt": "2026-06-30T18:15:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000010",
+    "name": "AI Grand Challenge for Climate and Nature",
+    "funder": "Bezos Earth Fund",
+    "amount": 50000,
+    "deadline": null,
+    "url": "https://aiforclimateandnature.org/about-the-grand-challenge",
+    "description": "Commits up to $100M to AI-powered solutions for climate change and biodiversity, across two phases: up to 30 Phase I seed grants of $50,000 for promising ideas, then up to 15 Phase II implementation grants of up to $2M over two years. Round-one focus areas: sustainable proteins, biodiversity conservation, and power-grid optimization, plus a 'Wild Card' category. Includes mentorship, compute infrastructure, and access to AI technology providers.",
+    "focusAreas": ["climate and technology", "AI for climate", "biodiversity", "sustainability"],
+    "orgLinkedIn": "https://www.linkedin.com/company/bezos-earth-fund",
+    "people": [
+      { "name": "Andrew Steer", "role": "President & CEO, Bezos Earth Fund", "linkedin": "" }
+    ],
+    "logistics": {
+      "decisionTimeline": "Two phases: Phase I seed awards announced at a Bezos Earth Fund–TED event (Climate Week NYC, late September); Phase I grantees then eligible to apply for Phase II implementation grants.",
+      "grantPeriod": "Phase I seed grant, then up to two years for Phase II implementation.",
+      "keyDates": [{ "label": "First round (2024) — closed; watch for future rounds", "date": null }],
+      "constraints": [
+        "Round-one focus (proteins, biodiversity, grid) is specialized — ETC fits via the 'Wild Card' category or a data/accountability angle",
+        "First challenge round (2024) has closed",
+        "Deep environmental-domain expertise expected"
+      ]
+    },
+    "fundedExamples": [
+      {
+        "grantee": "The Nature Conservancy",
+        "project": "$50K Phase I grant for edge-AI to speed electronic-monitoring footage review for sustainable industrial fisheries.",
+        "amount": 50000,
+        "year": "2024",
+        "url": "https://www.nature.org/en-us/newsroom/bezos-earth-fund-ai-challenge-climate-nature",
+        "takeaway": "Shows the Phase-I bar — a focused, measurable AI tool for an environmental accountability problem."
+      }
+    ],
+    "stage": "prospect",
+    "scoring": {
+      "overallScore": 60,
+      "recommendation": "consider",
+      "winProbability": 0.12,
+      "expectedValue": 6000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 60, "weight": 0.3, "rationale": "Climate & technology is an ETC focus, but round-one areas are specialized; ETC fits via 'Wild Card' or an accountability/data angle." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 68, "weight": 0.2, "rationale": "$50K seed with up to $2M Phase II — strong upside; funds AI applied work." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 42, "weight": 0.2, "rationale": "Huge, high-profile challenge in specialized domains." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 58, "weight": 0.15, "rationale": "Staged challenge; Phase I is lighter." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 74, "weight": 0.15, "rationale": "Bezos Earth Fund plus compute and AI-provider access." }
+      ],
+      "redFlags": [
+        "Round-one focus (proteins, biodiversity, grid) is specialized — ETC would fit via the 'Wild Card' category",
+        "First challenge round (2024) has closed — watch for future rounds",
+        "Deep-tech / domain expertise expected"
+      ],
+      "summary": "A large, high-upside private climate-tech fund ($50K seed → up to $2M), but its focus areas are specialized environmental domains where ETC isn't a natural lead. The realistic path is the 'Wild Card' category with an accountability/transparency angle on climate data. Track future rounds.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T18:20:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-30T18:20:00.000Z",
+    "updatedAt": "2026-06-30T18:20:00.000Z"
+  },
+  {
+    "id": "a1000000-0000-4000-8000-000000000011",
+    "name": "Common Good Cyber Fund",
+    "funder": "Internet Society Foundation",
+    "amount": 300000,
+    "deadline": "2026-08-04",
+    "url": "https://www.isocfoundation.org/2026/02/common-good-cyber-fund-a-new-global-grant-program-supporting-cybersecurity-nonprofits",
+    "description": "Two-year operating grants ($100K–$300K, max $300K total) to nonprofits strengthening public-interest cybersecurity — secure DNS/routing, threat intelligence, incident response, and training — and protecting high-risk actors (NGOs, journalists, human-rights defenders). Run by the Internet Society Foundation with the Global Cyber Alliance / Common Good Cyber Initiative; at least $3.5M to be awarded in 2026, plus capacity-building support. Applications opened 23 June 2026; deadline 4 August 2026.",
+    "focusAreas": ["public-interest cybersecurity", "digital safety", "human rights defenders", "technology for good"],
+    "orgLinkedIn": "https://www.linkedin.com/company/internet-society-foundation",
+    "people": [],
+    "logistics": {
+      "decisionTimeline": "Open call: applications opened 23 June 2026, deadline 4 August 2026. Multi-year operating grants (at least $3.5M total) awarded in 2026.",
+      "grantPeriod": "Two-year operating grant.",
+      "keyDates": [
+        { "label": "Applications open", "date": "2026-06-23" },
+        { "label": "Application deadline", "date": "2026-08-04" }
+      ],
+      "constraints": [
+        "US 501(c)(3) or international equivalent",
+        "Must provide cybersecurity infrastructure and/or direct services for high-risk digital actors",
+        "Requires a bank account able to receive funds from a US-based foundation"
+      ]
+    },
+    "fundedExamples": [],
+    "stage": "scoring",
+    "scoring": {
+      "overallScore": 71,
+      "recommendation": "consider",
+      "winProbability": 0.15,
+      "expectedValue": 45000,
+      "criteria": [
+        { "key": "missionAlignment", "label": "Mission alignment", "score": 74, "weight": 0.3, "rationale": "Protecting high-risk communities and public-interest tech aligns with ETC's ethical / good-use-of-technology mission." },
+        { "key": "fundingFit", "label": "Funding fit", "score": 82, "weight": 0.2, "rationale": "Two-year OPERATING grants of $100K–$300K — flexible, funds staff. Excellent." },
+        { "key": "winProbability", "label": "Competitiveness", "score": 55, "weight": 0.2, "rationale": "Niche nonprofit-cybersecurity ecosystem; ETC needs a clear security-service angle." },
+        { "key": "effort", "label": "Effort / feasibility", "score": 72, "weight": 0.15, "rationale": "Open call with a clear near-term deadline (4 Aug) — actionable now." },
+        { "key": "strategicValue", "label": "Strategic value", "score": 70, "weight": 0.15, "rationale": "Internet Society and Global Cyber Alliance network." }
+      ],
+      "redFlags": [
+        "Targets nonprofits providing cybersecurity infrastructure/services for high-risk actors — ETC needs a clear security-service angle",
+        "Deadline is soon (4 August 2026)",
+        "Two-year operating grant — expects an established program"
+      ],
+      "summary": "A strong, actionable opportunity with an imminent deadline (4 Aug 2026): flexible two-year operating grants of $100K–$300K for public-interest cybersecurity protecting NGOs, journalists, and human-rights defenders. Fit depends on ETC framing a concrete security-service or tooling angle (e.g. protecting high-risk communities from surveillance) — but the flexible operating funds and near-term deadline make it worth a fast decision.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-06-30T18:25:00.000Z"
+    },
+    "award": null,
+    "createdAt": "2026-06-30T18:25:00.000Z",
+    "updatedAt": "2026-06-30T18:25:00.000Z"
+  }
+]

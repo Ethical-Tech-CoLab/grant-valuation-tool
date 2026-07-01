@@ -16,9 +16,6 @@ next-env.d.ts
 .env.local
 .env*.local
 
-# local grant data (contains org-specific pipeline info)
-/data/grants.json
-
 # misc
 .DS_Store
 *.pem
