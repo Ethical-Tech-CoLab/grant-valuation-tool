@@ -41,6 +41,45 @@ export default function GrantForm({
       })
       .filter((p) => p.name);
 
+    // One milestone per line: "Label — YYYY-MM-DD" (date optional).
+    const keyDates = String(form.get("keyDates") || "")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const [label, date] = line.split(/\s+[—-]\s+/);
+        return { label: (label || "").trim(), date: (date || "").trim() || null };
+      })
+      .filter((d) => d.label);
+
+    const constraints = String(form.get("constraints") || "")
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    // One per line: "Grantee — Project — URL" (URL optional).
+    const fundedExamples = String(form.get("fundedExamples") || "")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const [grantee, project, url] = line.split(/\s+[—-]\s+/);
+        return {
+          grantee: (grantee || "").trim(),
+          project: (project || "").trim(),
+          url: (url || "").trim(),
+          amount: 0,
+          year: "",
+          takeaway: "",
+        };
+      })
+      .filter((e) => e.grantee);
+
+    const decisionTimeline = String(form.get("decisionTimeline") || "").trim();
+    const grantPeriod = String(form.get("grantPeriod") || "").trim();
+    const hasLogistics =
+      decisionTimeline || grantPeriod || keyDates.length || constraints.length;
+
     const payload = {
       name: String(form.get("name") || ""),
       funder: String(form.get("funder") || ""),
@@ -51,6 +90,10 @@ export default function GrantForm({
       focusAreas,
       orgLinkedIn: String(form.get("orgLinkedIn") || ""),
       people,
+      logistics: hasLogistics
+        ? { decisionTimeline, grantPeriod, keyDates, constraints }
+        : null,
+      fundedExamples,
     };
 
     try {
@@ -160,6 +203,59 @@ export default function GrantForm({
           rows={6}
           defaultValue={v.description ?? ""}
           placeholder="Paste the grant description, eligibility, allowable costs, and any notes. The more detail, the better the AI valuation."
+          className={inputClass}
+        />
+      </Field>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="Expected to hear back">
+          <input
+            name="decisionTimeline"
+            defaultValue={v.logistics?.decisionTimeline ?? ""}
+            placeholder="e.g. ~6–8 weeks after the deadline"
+            className={inputClass}
+          />
+        </Field>
+        <Field label="Grant period">
+          <input
+            name="grantPeriod"
+            defaultValue={v.logistics?.grantPeriod ?? ""}
+            placeholder="e.g. 12 months"
+            className={inputClass}
+          />
+        </Field>
+      </div>
+
+      <Field label="Key dates (one per line: Label — YYYY-MM-DD)">
+        <textarea
+          name="keyDates"
+          rows={3}
+          defaultValue={(v.logistics?.keyDates ?? [])
+            .map((d) => [d.label, d.date].filter(Boolean).join(" — "))
+            .join("\n")}
+          placeholder={"Applications open — 2026-09-06\nDeadline — 2026-10-05\nNotification — 2026-11-30"}
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Constraints / requirements (one per line)">
+        <textarea
+          name="constraints"
+          rows={3}
+          defaultValue={(v.logistics?.constraints ?? []).join("\n")}
+          placeholder={"US nonprofits only\nOutputs must be open source\nMatching funds required"}
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Funded examples to reference (one per line: Grantee — Project — URL)">
+        <textarea
+          name="fundedExamples"
+          rows={3}
+          defaultValue={(v.fundedExamples ?? [])
+            .map((e) => [e.grantee, e.project, e.url].filter(Boolean).join(" — "))
+            .join("\n")}
+          placeholder={"Upturn — Benefits Tech Advocacy Hub, challenging faulty benefits algorithms — https://www.upturn.org"}
           className={inputClass}
         />
       </Field>

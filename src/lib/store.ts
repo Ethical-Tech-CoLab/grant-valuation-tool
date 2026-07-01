@@ -54,6 +54,8 @@ export async function createGrant(input: GrantInput): Promise<Grant> {
     focusAreas: input.focusAreas ?? [],
     orgLinkedIn: input.orgLinkedIn?.trim() || "",
     people: input.people ?? [],
+    logistics: input.logistics ?? null,
+    fundedExamples: input.fundedExamples ?? [],
     stage: input.stage ?? "prospect",
     scoring: null,
     award: null,

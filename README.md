@@ -21,6 +21,8 @@ Feature highlights (drawn from leading grant-management platforms):
 |---|---|---|
 | **Web prospecting / import** | Instrumentl | Paste a grant URL or a search query — Tavily scrapes the web and Claude structures it into grant fields that pre-fill the form. |
 | **Who runs it** | Instrumentl relationship intel | Each grant carries the funder's LinkedIn page and the key people who run it (name, role, LinkedIn) — captured on import or entered manually. |
+| **Timeline & constraints** | Foundant / AmpliFund | Per grant: when to expect a decision, the grant period, a key-date timeline, and eligibility constraints/requirements. |
+| **Funded projects to learn from** | Instrumentl prospecting | Real prior grantees under each program, with a "for ETC" takeaway on how to adapt them into a proposal. |
 | **AI-assisted scoring** | Instrumentl, Good Grants, AmpliFund | Claude values each grant against the ETC mission: a 0–100 fit score, win probability, expected value, per-criterion breakdown, red flags, and a pursue / consider / pass recommendation. |
 | **Pipeline lifecycle** | Blackbaud, Salesforce | Every opportunity moves through six stages on a board view. |
 | **Deadline tracking** | Foundant | Due-soon flags and an upcoming-deadlines panel. |

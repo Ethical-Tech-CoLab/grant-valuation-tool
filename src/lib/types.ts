@@ -55,6 +55,38 @@ export interface ReportingRequirement {
   status: "pending" | "submitted";
 }
 
+/** A dated milestone in a grant's application/decision timeline. */
+export interface KeyDate {
+  label: string;
+  date: string | null;
+}
+
+/** "What happens after you apply" — timeline, response window, and constraints. */
+export interface GrantLogistics {
+  /** When applicants can expect a decision after applying */
+  decisionTimeline: string;
+  /** Funding / grant period or duration, e.g. "12 months" */
+  grantPeriod: string;
+  /** Timeline milestones (open date, deadline, notification, funding start, reporting) */
+  keyDates: KeyDate[];
+  /** Eligibility restrictions, requirements, and constraints */
+  constraints: string[];
+}
+
+/** A previously-funded project under this program — a reference/exemplar to adapt. */
+export interface FundedExample {
+  grantee: string;
+  /** what the funded project actually did */
+  project: string;
+  /** funded amount in USD; 0 if unknown */
+  amount: number;
+  /** year funded, e.g. "2026"; empty if unknown */
+  year: string;
+  url: string;
+  /** why it's a useful reference — how ETC could adapt it */
+  takeaway: string;
+}
+
 /** A person who runs the funding organization or program. */
 export interface Person {
   name: string;
@@ -86,6 +118,10 @@ export interface Grant {
   orgLinkedIn: string;
   /** Key people who run the funder / program */
   people: Person[];
+  /** Timeline, expected decision window, and constraints */
+  logistics: GrantLogistics | null;
+  /** Previously-funded projects to reference and adapt */
+  fundedExamples: FundedExample[];
   stage: PipelineStage;
   scoring: ScoringResult | null;
   award: AwardTracking | null;

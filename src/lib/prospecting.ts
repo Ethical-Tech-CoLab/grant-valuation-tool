@@ -79,9 +79,24 @@ async function scrapeSearch(query: string): Promise<SourceContent> {
 // Best-effort second pass: find the funder's LinkedIn page and the people who
 // run it. Returns snippet text to fold into the model's context, or "" on error.
 async function scrapeLeadership(hint: string): Promise<string> {
+  return sideSearch(
+    `${hint} foundation leadership president OR "executive director" OR CEO LinkedIn`,
+    "Leadership summary",
+  );
+}
+
+// Best-effort third pass: find previously-funded projects / grantees to reference.
+async function scrapePastGrants(hint: string): Promise<string> {
+  return sideSearch(
+    `${hint} past grantees OR "funded projects" OR awardees examples`,
+    "Past grantees summary",
+  );
+}
+
+async function sideSearch(query: string, label: string): Promise<string> {
   try {
     const data = await tavily("search", {
-      query: `${hint} foundation leadership president OR "executive director" OR CEO LinkedIn`,
+      query,
       search_depth: "advanced",
       max_results: 5,
       include_raw_content: false,
@@ -90,7 +105,7 @@ async function scrapeLeadership(hint: string): Promise<string> {
       data.results ?? [];
     if (results.length === 0) return "";
     return [
-      data.answer ? `Leadership summary: ${data.answer}` : "",
+      data.answer ? `${label}: ${data.answer}` : "",
       ...results.map((r) => `- ${r.title} (${r.url}): ${(r.content || "").slice(0, 400)}`),
     ]
       .filter(Boolean)
@@ -130,6 +145,41 @@ const ProspectSchema = z.object({
       }),
     )
     .describe("1-4 key people who run the funder or program; empty array if none found"),
+  decisionTimeline: z
+    .string()
+    .describe(
+      "when applicants can expect to hear back / a decision after applying (e.g. 'notified ~6-8 weeks after the deadline'); empty string if not stated",
+    ),
+  grantPeriod: z
+    .string()
+    .describe("the funding / grant period or duration, e.g. '12 months'; empty string if not stated"),
+  keyDates: z
+    .array(
+      z.object({
+        label: z.string().describe("milestone name, e.g. 'Applications open', 'Deadline', 'Notification', 'Funding starts'"),
+        date: z.string().describe("YYYY-MM-DD, or empty string if only an approximate window is known"),
+      }),
+    )
+    .describe("key timeline milestones; empty array if none found"),
+  constraints: z
+    .array(z.string())
+    .describe(
+      "eligibility restrictions, requirements, or constraints (e.g. 'US nonprofits only', 'outputs must be open source', 'matching funds required', 'no unsolicited proposals'); empty array if none",
+    ),
+  fundedExamples: z
+    .array(
+      z.object({
+        grantee: z.string().describe("the organization/project that was funded"),
+        project: z.string().describe("what the funded project actually did"),
+        amount: z.number().describe("funded amount in USD, or 0 if unknown"),
+        year: z.string().describe("year funded, e.g. '2026', or empty string"),
+        url: z.string().describe("link to the project/announcement, or empty string"),
+        takeaway: z.string().describe("one line on why it's a useful reference to adapt"),
+      }),
+    )
+    .describe(
+      "up to 4 previously-funded projects under this program that are named in the content — real reference examples; empty array if none found",
+    ),
   foundGrant: z
     .boolean()
     .describe("false if the page does not actually describe a fundable grant opportunity"),
@@ -154,8 +204,11 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
     ? await scrapeUrl(trimmed)
     : await scrapeSearch(trimmed);
 
-  // Second pass: enrich with the funder's LinkedIn + leadership.
-  const leadership = await scrapeLeadership(source.sourceUrl || trimmed);
+  // Enrich with the funder's leadership and its past grantees, in parallel.
+  const [leadership, pastGrants] = await Promise.all([
+    scrapeLeadership(source.sourceUrl || trimmed),
+    scrapePastGrants(source.sourceUrl || trimmed),
+  ]);
 
   const client = new Anthropic();
   const response = await client.messages.parse({
@@ -170,12 +223,13 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
       {
         role: "user",
         content: [
-          "Extract structured grant details from the web content below. If it describes multiple grants, pick the single most relevant fundable opportunity. Do not invent facts — use empty string / 0 / empty array when something is not stated.",
+          "Extract structured grant details from the web content below. If it describes multiple grants, pick the single most relevant fundable opportunity. Pay attention to the application/decision TIMELINE (when applicants hear back), the grant PERIOD, any CONSTRAINTS or eligibility requirements, and any PAST GRANTEES / previously-funded projects named in the content (real examples to reference). Do not invent facts — use empty string / 0 / empty array when something is not stated.",
           source.sourceUrl ? `Source URL: ${source.sourceUrl}` : "",
           "",
           "--- GRANT / FUNDER CONTENT ---",
           source.content.slice(0, MAX_CONTENT_CHARS),
           leadership ? "\n--- LEADERSHIP / LINKEDIN SEARCH ---\n" + leadership : "",
+          pastGrants ? "\n--- PAST GRANTEES SEARCH ---\n" + pastGrants : "",
         ]
           .filter(Boolean)
           .join("\n"),
@@ -201,6 +255,13 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
       focusAreas: p.focusAreas,
       orgLinkedIn: p.orgLinkedIn,
       people: p.people,
+      logistics: {
+        decisionTimeline: p.decisionTimeline,
+        grantPeriod: p.grantPeriod,
+        keyDates: p.keyDates.map((d) => ({ label: d.label, date: d.date || null })),
+        constraints: p.constraints,
+      },
+      fundedExamples: p.fundedExamples,
     },
   };
 }

@@ -9,6 +9,8 @@ import { formatCurrency, formatDate, deadlineStatus } from "@/lib/format";
 import ScorePanel from "@/components/ScorePanel";
 import AwardPanel from "@/components/AwardPanel";
 import PeoplePanel from "@/components/PeoplePanel";
+import LogisticsPanel from "@/components/LogisticsPanel";
+import FundedExamplesPanel from "@/components/FundedExamplesPanel";
 
 export default function GrantDetailPage({
   params,
@@ -142,9 +144,13 @@ export default function GrantDetailPage({
         </section>
       )}
 
+      <LogisticsPanel grant={grant} />
+
       <PeoplePanel grant={grant} />
 
       <ScorePanel grant={grant} onScored={setGrant} />
+
+      <FundedExamplesPanel grant={grant} />
 
       {grant.stage === "awarded" && <AwardPanel grant={grant} onSaved={setGrant} />}
     </div>
