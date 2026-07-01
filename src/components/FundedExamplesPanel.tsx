@@ -42,6 +42,30 @@ export default function FundedExamplesPanel({ grant }: { grant: Grant }) {
               </div>
             </div>
             <p className="mt-1 text-sm text-slate-600">{ex.project}</p>
+            {(ex.orgUrl || ex.proposalUrl) && (
+              <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
+                {ex.orgUrl && (
+                  <a
+                    href={ex.orgUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-indigo-700 hover:underline"
+                  >
+                    Organization ↗
+                  </a>
+                )}
+                {ex.proposalUrl && (
+                  <a
+                    href={ex.proposalUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-indigo-700 hover:underline"
+                  >
+                    Grant proposal ↗
+                  </a>
+                )}
+              </div>
+            )}
             {ex.takeaway && (
               <p className="mt-2 rounded-md bg-indigo-50 px-3 py-1.5 text-xs text-indigo-800">
                 <span className="font-semibold">For ETC:</span> {ex.takeaway}

@@ -49,6 +49,7 @@ function buildPrompt(grant: Grant): string {
     m.mission,
     "",
     `Focus areas: ${m.focusAreas.join("; ")}`,
+    `Current projects: ${m.currentProjects.map((p) => `${p.name} (${p.question})`).join("; ")}`,
     `Strengths: ${m.strengths.join("; ")}`,
     `Constraints: ${m.constraints.join("; ")}`,
     `Breadth: ${m.breadth}`,
@@ -69,6 +70,17 @@ function buildPrompt(grant: Grant): string {
     "Description / notes:",
     grant.description || "(no description provided — evaluate conservatively and flag the missing info)",
     "",
+    grant.reviewCriteria && grant.reviewCriteria.length
+      ? [
+          "## How the funder scores applications (their review criteria)",
+          "Factor these into competitiveness and win probability — they are what the funder actually rewards:",
+          ...grant.reviewCriteria.map(
+            (c) =>
+              `- ${c.criterion}${c.weight ? ` (${c.weight})` : ""}${c.detail ? `: ${c.detail}` : ""}`,
+          ),
+          "",
+        ].join("\n")
+      : "",
     "## Instructions",
     "- overallScore must be the weight-weighted average of the criteria scores.",
     "- Be honest and specific; ETC has limited grant-writing bandwidth, so effort cost matters.",

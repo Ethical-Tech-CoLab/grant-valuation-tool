@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { listGrants } from "@/lib/store";
 import { scoringConfigured } from "@/lib/scoring";
+import { buildDigest } from "@/lib/digest";
+import type { DigestItem } from "@/lib/digest";
 import type { Grant } from "@/lib/types";
 import {
   formatCurrency,
@@ -8,6 +10,12 @@ import {
   deadlineStatus,
   recommendationColor,
 } from "@/lib/format";
+
+const TIER_STYLES: Record<DigestItem["tier"], { dot: string; label: string }> = {
+  urgent: { dot: "bg-rose-500", label: "text-rose-600" },
+  soon: { dot: "bg-amber-500", label: "text-amber-600" },
+  attention: { dot: "bg-slate-300", label: "text-slate-400" },
+};
 
 export const dynamic = "force-dynamic";
 
@@ -42,6 +50,8 @@ export default async function Dashboard() {
     .filter((g) => g.scoring)
     .sort((a, b) => (b.scoring!.overallScore || 0) - (a.scoring!.overallScore || 0))
     .slice(0, 6);
+
+  const digest = buildDigest(grants);
 
   return (
     <div className="space-y-8">

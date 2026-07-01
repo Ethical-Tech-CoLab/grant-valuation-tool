@@ -23,6 +23,12 @@ export default function Nav() {
             Pipeline
           </Link>
           <Link
+            href="/discover"
+            className="rounded-md px-3 py-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+          >
+            Discover
+          </Link>
+          <Link
             href="/grants/new"
             className="rounded-md bg-slate-900 px-3 py-1.5 font-medium text-white hover:bg-slate-700"
           >

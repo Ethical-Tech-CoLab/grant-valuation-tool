@@ -1,8 +1,10 @@
 # ETC Grant Valuator
 
-An AI-assisted grant **valuation and pipeline** tool for the Ethical Tech CoLab.
-Capture prospective grants, let Claude score each one against ETC's mission, and
-track the winners from application through to reporting and outcomes.
+An AI-assisted grant **valuation and pipeline** tool for the
+[NYU Ethical Tech CoLab](https://ethical-tech-colab.github.io/website/) — a
+research collaboration between NYU's Center for Global Affairs and Microsoft
+Research. Capture prospective grants, let Claude score each one against ETC's
+mission, and track the winners from application through to reporting and outcomes.
 
 Built with Next.js 16, React 19, Tailwind v4, and the Anthropic SDK — matching
 the ETC website stack.
@@ -22,8 +24,11 @@ Feature highlights (drawn from leading grant-management platforms):
 | **Web prospecting / import** | Instrumentl | Paste a grant URL or a search query — Tavily scrapes the web and Claude structures it into grant fields that pre-fill the form. |
 | **Who runs it** | Instrumentl relationship intel | Each grant carries the funder's LinkedIn page and the key people who run it (name, role, LinkedIn) — captured on import or entered manually. |
 | **Timeline & constraints** | Foundant / AmpliFund | Per grant: when to expect a decision, the grant period, a key-date timeline, and eligibility constraints/requirements. |
+| **Funder review criteria** | Good Grants / Submittable rubrics | Capture *how the funder scores applications* — their rubric, weights, and what they look for. Extracted on import (a dedicated web search hunts for it) and fed into both the scorer and the proposal draft so you write to what actually wins. |
 | **Funded projects to learn from** | Instrumentl prospecting | Real prior grantees under each program, with a "for ETC" takeaway on how to adapt them into a proposal. |
 | **AI-assisted scoring** | Instrumentl, Good Grants, AmpliFund | Claude values each grant against the ETC mission: a 0–100 fit score, win probability, expected value, per-criterion breakdown, red flags, and a pursue / consider / pass recommendation. |
+| **Tailored proposal draft** | Grantboost / proposal AI | One click turns a grant into an initial proposal recommendation: a project title, core thesis, the key aspects to lead with, a suggested outline, how ETC maps onto the funder's criteria, differentiators, and gaps to shore up. |
+| **Recommendations & tips** | GrantStation public grantseeking guidance | A funder-tailored grantseeking playbook per grant: a strategic read, prioritized tips across positioning, funder research, relationship, proposal craft, budget, process, and pitfalls, plus concrete next actions before the deadline. Grounded in established best practices, written for this specific opportunity. |
 | **Pipeline lifecycle** | Blackbaud, Salesforce | Every opportunity moves through six stages on a board view. |
 | **Deadline tracking** | Foundant | Due-soon flags and an upcoming-deadlines panel. |
 | **Post-award tracking** | AmpliFund, Blackbaud | Awarded grants get reporting requirements, budget-utilization, and outcome notes. |
@@ -54,6 +59,20 @@ search results (`src/lib/prospecting.ts`), then Claude structures the content
 into grant fields — name, funder, amount, deadline, focus areas, and a summary —
 which pre-fill the form for you to review and save.
 
+## Recommendations & tips
+
+On each grant's detail page, **Get tips with AI** generates a grantseeking
+playbook tailored to that funder (`src/lib/recommendations.ts`): a strategic
+read of the opportunity, 5–10 prioritized tips spanning positioning, funder
+research, relationship-building, proposal craft, budget, process, and common
+pitfalls, plus an ordered list of next actions before the deadline. The engine
+is grounded in well-established grantseeking best practices — the kind of
+guidance nonprofit resources like [GrantStation](https://grantstation.com/)
+publish freely — but the model writes advice specific to *this* grant, funder,
+and ETC's actual strengths, reusing everything the grant already knows (mission,
+the funder's review criteria, timeline/constraints, funded examples, and any
+prior AI valuation). It never copies or re-hosts third-party content.
+
 ## How scoring works
 
 `src/lib/mission.ts` holds the ETC profile — mission, focus areas (responsible
@@ -80,11 +99,13 @@ src/
     pipeline/page.tsx            Stage board
     grants/new/page.tsx          Add-grant form
     grants/[id]/page.tsx         Grant detail: scoring + award tracking
-    api/grants/…                 REST endpoints (CRUD + /score)
+    api/grants/…                 REST endpoints (CRUD + /score + /proposal)
     api/prospect/route.ts        Web import (Tavily scrape → Claude structure)
   lib/
     mission.ts                   ETC profile & scoring criteria  ← tune this
     scoring.ts                   Anthropic valuation engine
+    proposal.ts                  Anthropic proposal-draft engine
+    recommendations.ts           Anthropic grantseeking tips engine
     prospecting.ts               Tavily + Claude web import
     store.ts                     JSON data store
     types.ts                     Domain types

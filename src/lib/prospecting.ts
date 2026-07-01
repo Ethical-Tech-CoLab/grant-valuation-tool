@@ -93,6 +93,30 @@ async function scrapePastGrants(hint: string): Promise<string> {
   );
 }
 
+// Best-effort fourth pass: find how the funder scores applications (their rubric).
+async function scrapeReviewCriteria(hint: string): Promise<string> {
+  return sideSearch(
+    `${hint} "review criteria" OR "evaluation criteria" OR "selection criteria" OR rubric OR "how applications are scored" OR "what we look for"`,
+    "Review criteria summary",
+  );
+}
+
+// Best-effort fifth pass: find the coalition / foundations funding a collaborative.
+async function scrapeCoalition(hint: string): Promise<string> {
+  return sideSearch(
+    `${hint} funded by OR "supported by" OR "in partnership with" OR "founding funders" OR "member foundations" OR coalition OR collaborative OR "funding partners" OR backers`,
+    "Coalition / funders summary",
+  );
+}
+
+// Best-effort sixth pass: find the application mechanism / form / process.
+async function scrapeSubmission(hint: string): Promise<string> {
+  return sideSearch(
+    `${hint} "how to apply" OR "application process" OR "application form" OR "submission guidelines" OR "letter of inquiry" OR "required materials" OR apply portal`,
+    "Submission process summary",
+  );
+}
+
 async function sideSearch(query: string, label: string): Promise<string> {
   try {
     const data = await tavily("search", {
@@ -166,19 +190,71 @@ const ProspectSchema = z.object({
     .describe(
       "eligibility restrictions, requirements, or constraints (e.g. 'US nonprofits only', 'outputs must be open source', 'matching funds required', 'no unsolicited proposals'); empty array if none",
     ),
+  reviewCriteria: z
+    .array(
+      z.object({
+        criterion: z
+          .string()
+          .describe("a dimension the funder scores applications on, e.g. 'Innovation & originality'"),
+        weight: z
+          .string()
+          .describe("the stated weight if given, e.g. '30%' or '25 pts'; empty string if not stated"),
+        detail: z
+          .string()
+          .describe("what the funder says they are looking for on this criterion"),
+      }),
+    )
+    .describe(
+      "how the FUNDER evaluates/scores applications — their published review criteria, rubric, or selection priorities (what THEY look for, not ETC's fit). Empty array if none stated.",
+    ),
+  coalition: z
+    .array(
+      z.object({
+        name: z.string().describe("the backer/funder organization name"),
+        type: z
+          .enum(["foundation", "corporate", "government", "nonprofit", "academic", "multilateral", "other"])
+          .describe("what kind of entity this backer is"),
+        role: z
+          .string()
+          .describe("their role or contribution, e.g. 'Founding funder', '$100M commitment', 'Convener'; empty if unknown"),
+        url: z.string().describe("their website or LinkedIn, or empty string"),
+      }),
+    )
+    .describe(
+      "the coalition / foundations / partners actually FUNDING or backing this opportunity. For a collaborative or challenge (e.g. a $500M fund backed by many foundations), list every named member funder. Empty array if it's a single funder already captured above or none are named.",
+    ),
+  submission: z
+    .object({
+      mechanism: z
+        .string()
+        .describe("how you apply, e.g. 'Online application via Fluxx portal', 'Letter of inquiry then full proposal by invitation'; empty if unknown"),
+      formUrl: z.string().describe("direct link to the application form / portal, or empty string"),
+      steps: z.array(z.string()).describe("ordered steps in the application process; empty array if not stated"),
+      materials: z
+        .array(z.string())
+        .describe("required materials, e.g. 'project narrative', 'budget', 'letters of support'; empty array if not stated"),
+      notes: z.string().describe("any extra notes on the process; empty string if none"),
+    })
+    .describe("how to actually apply — the submission mechanism and process"),
   fundedExamples: z
     .array(
       z.object({
         grantee: z.string().describe("the organization/project that was funded"),
         project: z.string().describe("what the funded project actually did"),
-        amount: z.number().describe("funded amount in USD, or 0 if unknown"),
+        amount: z
+          .number()
+          .describe("funded amount in USD — double-check the actual figure from the content; 0 only if truly unknown"),
         year: z.string().describe("year funded, e.g. '2026', or empty string"),
-        url: z.string().describe("link to the project/announcement, or empty string"),
+        url: z.string().describe("link to the project/award announcement, or empty string"),
+        orgUrl: z.string().describe("link to the grantee organization's own website, or empty string"),
+        proposalUrl: z
+          .string()
+          .describe("link to the actual grant proposal/application if it is public, or empty string"),
         takeaway: z.string().describe("one line on why it's a useful reference to adapt"),
       }),
     )
     .describe(
-      "up to 4 previously-funded projects under this program that are named in the content — real reference examples; empty array if none found",
+      "up to 4 previously-funded projects under this program that are named in the content — real reference examples. Verify the funded amount and include org and proposal links where available. Empty array if none found.",
     ),
   foundGrant: z
     .boolean()
@@ -204,10 +280,14 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
     ? await scrapeUrl(trimmed)
     : await scrapeSearch(trimmed);
 
-  // Enrich with the funder's leadership and its past grantees, in parallel.
-  const [leadership, pastGrants] = await Promise.all([
+  // Enrich with leadership, past grantees, review criteria, the funding
+  // coalition, and the submission process — all in parallel.
+  const [leadership, pastGrants, reviewCriteria, coalition, submission] = await Promise.all([
     scrapeLeadership(source.sourceUrl || trimmed),
     scrapePastGrants(source.sourceUrl || trimmed),
+    scrapeReviewCriteria(source.sourceUrl || trimmed),
+    scrapeCoalition(source.sourceUrl || trimmed),
+    scrapeSubmission(source.sourceUrl || trimmed),
   ]);
 
   const client = new Anthropic();
@@ -223,13 +303,16 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
       {
         role: "user",
         content: [
-          "Extract structured grant details from the web content below. If it describes multiple grants, pick the single most relevant fundable opportunity. Pay attention to the application/decision TIMELINE (when applicants hear back), the grant PERIOD, any CONSTRAINTS or eligibility requirements, and any PAST GRANTEES / previously-funded projects named in the content (real examples to reference). Do not invent facts — use empty string / 0 / empty array when something is not stated.",
+          "Extract structured grant details from the web content below. If it describes multiple grants, pick the single most relevant fundable opportunity. Pay attention to the application/decision TIMELINE (when applicants hear back), the grant PERIOD, any CONSTRAINTS or eligibility requirements, the funder's REVIEW/EVALUATION CRITERIA (how they score applications), the COALITION of funders/foundations backing this opportunity (especially for collaboratives — list every named member funder), the SUBMISSION PROCESS (how you apply — mechanism, form/portal link, steps, required materials), and any PAST GRANTEES / previously-funded projects named in the content (with verified amounts and org/proposal links). Do not invent facts — use empty string / 0 / empty array when something is not stated.",
           source.sourceUrl ? `Source URL: ${source.sourceUrl}` : "",
           "",
           "--- GRANT / FUNDER CONTENT ---",
           source.content.slice(0, MAX_CONTENT_CHARS),
           leadership ? "\n--- LEADERSHIP / LINKEDIN SEARCH ---\n" + leadership : "",
           pastGrants ? "\n--- PAST GRANTEES SEARCH ---\n" + pastGrants : "",
+          reviewCriteria ? "\n--- REVIEW / EVALUATION CRITERIA SEARCH ---\n" + reviewCriteria : "",
+          coalition ? "\n--- COALITION / FUNDERS SEARCH ---\n" + coalition : "",
+          submission ? "\n--- SUBMISSION / HOW-TO-APPLY SEARCH ---\n" + submission : "",
         ]
           .filter(Boolean)
           .join("\n"),
@@ -261,7 +344,39 @@ export async function prospectGrant(input: string): Promise<ProspectResult> {
         keyDates: p.keyDates.map((d) => ({ label: d.label, date: d.date || null })),
         constraints: p.constraints,
       },
-      fundedExamples: p.fundedExamples,
+      coalition: p.coalition.map((c) => ({
+        name: c.name,
+        type: c.type,
+        role: c.role,
+        url: c.url,
+        bestFit: false,
+        note: "",
+      })),
+      submission:
+        p.submission.mechanism ||
+        p.submission.formUrl ||
+        p.submission.steps.length ||
+        p.submission.materials.length ||
+        p.submission.notes
+          ? {
+              mechanism: p.submission.mechanism,
+              formUrl: p.submission.formUrl,
+              steps: p.submission.steps,
+              materials: p.submission.materials,
+              notes: p.submission.notes,
+            }
+          : null,
+      reviewCriteria: p.reviewCriteria,
+      fundedExamples: p.fundedExamples.map((e) => ({
+        grantee: e.grantee,
+        project: e.project,
+        amount: e.amount || 0,
+        year: e.year,
+        url: e.url,
+        orgUrl: e.orgUrl,
+        proposalUrl: e.proposalUrl,
+        takeaway: e.takeaway,
+      })),
     },
   };
 }

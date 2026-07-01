@@ -3,14 +3,21 @@
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import type { Grant, PipelineStage } from "@/lib/types";
-import { PIPELINE_STAGES, STAGE_LABELS } from "@/lib/types";
+import type { Grant, PipelineStage, Availability } from "@/lib/types";
+import { PIPELINE_STAGES, STAGE_LABELS, AVAILABILITY, AVAILABILITY_LABELS } from "@/lib/types";
 import { formatCurrency, formatDate, deadlineStatus } from "@/lib/format";
+import AvailabilityBadge from "@/components/AvailabilityBadge";
 import ScorePanel from "@/components/ScorePanel";
+import ProposalPanel from "@/components/ProposalPanel";
+import RecommendationsPanel from "@/components/RecommendationsPanel";
 import AwardPanel from "@/components/AwardPanel";
 import PeoplePanel from "@/components/PeoplePanel";
+import CoalitionPanel from "@/components/CoalitionPanel";
 import LogisticsPanel from "@/components/LogisticsPanel";
+import SubmissionPanel from "@/components/SubmissionPanel";
+import ReviewCriteriaPanel from "@/components/ReviewCriteriaPanel";
 import FundedExamplesPanel from "@/components/FundedExamplesPanel";
+import RelatedChallengesPanel from "@/components/RelatedChallengesPanel";
 
 export default function GrantDetailPage({
   params,
@@ -34,6 +41,15 @@ export default function GrantDetailPage({
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stage }),
+    });
+    if (res.ok) setGrant(await res.json());
+  }
+
+  async function setAvailability(availability: Availability | null) {
+    const res = await fetch(`/api/grants/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ availability }),
     });
     if (res.ok) setGrant(await res.json());
   }
@@ -67,8 +83,17 @@ export default function GrantDetailPage({
         </Link>
         <div className="mt-2 flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900">{grant.name}</h1>
+            <div className="flex flex-wrap items-center gap-2">
+              <h1 className="text-2xl font-semibold text-slate-900">{grant.name}</h1>
+              <AvailabilityBadge
+                availability={grant.availability}
+                note={grant.availabilityNote}
+              />
+            </div>
             <p className="mt-1 text-slate-500">{grant.funder || "Unknown funder"}</p>
+            {grant.availabilityNote && (
+              <p className="mt-0.5 text-xs text-slate-400">{grant.availabilityNote}</p>
+            )}
           </div>
           <button
             type="button"
@@ -81,7 +106,7 @@ export default function GrantDetailPage({
       </div>
 
       {/* Key facts + stage */}
-      <section className="grid gap-4 rounded-xl border border-slate-200 bg-white p-6 sm:grid-cols-4">
+      <section className="grid gap-4 rounded-xl border border-slate-200 bg-white p-6 sm:grid-cols-3 lg:grid-cols-5">
         <Fact label="Amount" value={formatCurrency(grant.amount)} />
         <Fact
           label="Deadline"
@@ -102,6 +127,26 @@ export default function GrantDetailPage({
             {PIPELINE_STAGES.map((s) => (
               <option key={s} value={s}>
                 {STAGE_LABELS[s]}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <div className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            Availability
+          </div>
+          <select
+            aria-label="Availability"
+            value={grant.availability ?? ""}
+            onChange={(e) =>
+              setAvailability((e.target.value || null) as Availability | null)
+            }
+            className="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm text-slate-900"
+          >
+            <option value="">Not set</option>
+            {AVAILABILITY.map((a) => (
+              <option key={a} value={a}>
+                {AVAILABILITY_LABELS[a]}
               </option>
             ))}
           </select>
@@ -146,11 +191,23 @@ export default function GrantDetailPage({
 
       <LogisticsPanel grant={grant} />
 
+      <CoalitionPanel grant={grant} onUpdated={setGrant} />
+
+      <SubmissionPanel grant={grant} />
+
+      <ReviewCriteriaPanel grant={grant} />
+
       <PeoplePanel grant={grant} />
 
       <ScorePanel grant={grant} onScored={setGrant} />
 
+      <ProposalPanel grant={grant} onDrafted={setGrant} />
+
+      <RecommendationsPanel grant={grant} onGenerated={setGrant} />
+
       <FundedExamplesPanel grant={grant} />
+
+      <RelatedChallengesPanel grant={grant} />
 
       {grant.stage === "awarded" && <AwardPanel grant={grant} onSaved={setGrant} />}
     </div>

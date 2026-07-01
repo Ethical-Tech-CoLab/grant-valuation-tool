@@ -57,6 +57,21 @@ export default function GrantForm({
       .map((s) => s.trim())
       .filter(Boolean);
 
+    // One criterion per line: "Criterion — Weight — Detail" (weight/detail optional).
+    const reviewCriteria = String(form.get("reviewCriteria") || "")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const [criterion, weight, detail] = line.split(/\s+[—-]\s+/);
+        return {
+          criterion: (criterion || "").trim(),
+          weight: (weight || "").trim(),
+          detail: (detail || "").trim(),
+        };
+      })
+      .filter((c) => c.criterion);
+
     // One per line: "Grantee — Project — URL" (URL optional).
     const fundedExamples = String(form.get("fundedExamples") || "")
       .split("\n")
@@ -68,12 +83,65 @@ export default function GrantForm({
           grantee: (grantee || "").trim(),
           project: (project || "").trim(),
           url: (url || "").trim(),
+          orgUrl: "",
+          proposalUrl: "",
           amount: 0,
           year: "",
           takeaway: "",
         };
       })
       .filter((e) => e.grantee);
+
+    // One backer per line: "Name — Type — Role — URL" (type/role/url optional).
+    const BACKER_SET = new Set([
+      "foundation",
+      "corporate",
+      "government",
+      "nonprofit",
+      "academic",
+      "multilateral",
+      "other",
+    ]);
+    const coalition = String(form.get("coalition") || "")
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const [name, type, role, url] = line.split(/\s+[—-]\s+/);
+        const t = (type || "").trim().toLowerCase();
+        return {
+          name: (name || "").trim(),
+          type: (BACKER_SET.has(t) ? t : "other") as
+            | "foundation"
+            | "corporate"
+            | "government"
+            | "nonprofit"
+            | "academic"
+            | "multilateral"
+            | "other",
+          role: (role || "").trim(),
+          url: (url || "").trim(),
+          bestFit: false,
+          note: "",
+        };
+      })
+      .filter((c) => c.name);
+
+    const submissionMechanism = String(form.get("submissionMechanism") || "").trim();
+    const submissionFormUrl = String(form.get("submissionFormUrl") || "").trim();
+    const submissionSteps = String(form.get("submissionSteps") || "")
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const submissionMaterials = String(form.get("submissionMaterials") || "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const hasSubmission =
+      submissionMechanism ||
+      submissionFormUrl ||
+      submissionSteps.length ||
+      submissionMaterials.length;
 
     const decisionTimeline = String(form.get("decisionTimeline") || "").trim();
     const grantPeriod = String(form.get("grantPeriod") || "").trim();
@@ -93,6 +161,17 @@ export default function GrantForm({
       logistics: hasLogistics
         ? { decisionTimeline, grantPeriod, keyDates, constraints }
         : null,
+      coalition,
+      submission: hasSubmission
+        ? {
+            mechanism: submissionMechanism,
+            formUrl: submissionFormUrl,
+            steps: submissionSteps,
+            materials: submissionMaterials,
+            notes: "",
+          }
+        : null,
+      reviewCriteria,
       fundedExamples,
     };
 
@@ -244,6 +323,72 @@ export default function GrantForm({
           rows={3}
           defaultValue={(v.logistics?.constraints ?? []).join("\n")}
           placeholder={"US nonprofits only\nOutputs must be open source\nMatching funds required"}
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Funder review criteria (one per line: Criterion — Weight — What they look for)">
+        <textarea
+          name="reviewCriteria"
+          rows={3}
+          defaultValue={(v.reviewCriteria ?? [])
+            .map((c) => [c.criterion, c.weight, c.detail].filter(Boolean).join(" — "))
+            .join("\n")}
+          placeholder={"Innovation & originality — 30% — Novel approach to a real public-interest problem\nImpact & reach — 25% — Clear, measurable benefit to communities\nFeasibility — 20% — Credible plan, team, and budget"}
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Coalition / who funds it (one per line: Name — Type — Role — URL)">
+        <textarea
+          name="coalition"
+          rows={3}
+          defaultValue={(v.coalition ?? [])
+            .map((c) => [c.name, c.type, c.role, c.url].filter(Boolean).join(" — "))
+            .join("\n")}
+          placeholder={"MacArthur Foundation — foundation — Founding funder — https://www.macfound.org\nMicrosoft — corporate — Compute & data partner"}
+          className={inputClass}
+        />
+        <span className="mt-1 block text-xs text-slate-400">
+          Type: foundation, corporate, government, nonprofit, academic, multilateral, or other.
+        </span>
+      </Field>
+
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="How to apply (mechanism)">
+          <input
+            name="submissionMechanism"
+            defaultValue={v.submission?.mechanism ?? ""}
+            placeholder="e.g. Online form via Fluxx portal"
+            className={inputClass}
+          />
+        </Field>
+        <Field label="Application form URL">
+          <input
+            name="submissionFormUrl"
+            type="url"
+            defaultValue={v.submission?.formUrl ?? ""}
+            placeholder="https://..."
+            className={inputClass}
+          />
+        </Field>
+      </div>
+
+      <Field label="Application steps (one per line)">
+        <textarea
+          name="submissionSteps"
+          rows={3}
+          defaultValue={(v.submission?.steps ?? []).join("\n")}
+          placeholder={"Submit a letter of inquiry\nInvited applicants submit a full proposal\nFinalists interview with the review panel"}
+          className={inputClass}
+        />
+      </Field>
+
+      <Field label="Required materials (comma-separated)">
+        <input
+          name="submissionMaterials"
+          defaultValue={(v.submission?.materials ?? []).join(", ")}
+          placeholder="project narrative, budget, letters of support"
           className={inputClass}
         />
       </Field>

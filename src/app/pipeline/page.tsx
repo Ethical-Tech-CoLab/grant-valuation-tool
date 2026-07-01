@@ -2,8 +2,17 @@ import Link from "next/link";
 import { listGrants } from "@/lib/store";
 import { PIPELINE_STAGES, STAGE_LABELS, type Grant, type PipelineStage } from "@/lib/types";
 import { formatCurrency, deadlineStatus, recommendationColor } from "@/lib/format";
+import AvailabilityBadge from "@/components/AvailabilityBadge";
 
 export const dynamic = "force-dynamic";
+
+// An opportunity you can act on now (or soon) vs. one whose cycle has ended.
+const isActionable = (g: Grant) =>
+  g.availability === "open" ||
+  g.availability === "upcoming" ||
+  g.availability === "rolling";
+const isDormant = (g: Grant) =>
+  g.availability === "closed" || g.availability === "invite-only";
 
 export default async function PipelinePage() {
   const grants = await listGrants();
@@ -16,6 +25,9 @@ export default async function PipelinePage() {
     {} as Record<PipelineStage, Grant[]>,
   );
 
+  const actionable = grants.filter(isActionable).length;
+  const dormant = grants.filter(isDormant).length;
+
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
@@ -23,7 +35,17 @@ export default async function PipelinePage() {
           <h1 className="text-2xl font-semibold text-slate-900">Pipeline</h1>
           <p className="mt-1 text-sm text-slate-500">
             {grants.length} {grants.length === 1 ? "opportunity" : "opportunities"} across
-            the funnel.
+            the funnel
+            {(actionable > 0 || dormant > 0) && (
+              <>
+                {" · "}
+                <span className="font-medium text-emerald-700">{actionable} open / upcoming</span>
+                {dormant > 0 && (
+                  <span className="text-slate-400"> · {dormant} closed</span>
+                )}
+              </>
+            )}
+            .
           </p>
         </div>
         <Link
@@ -66,11 +88,23 @@ export default async function PipelinePage() {
 
 function GrantCard({ grant }: { grant: Grant }) {
   const deadline = deadlineStatus(grant.deadline);
+  const dormant = isDormant(grant);
   return (
     <Link
       href={`/grants/${grant.id}`}
-      className="block rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition hover:border-slate-300 hover:shadow"
+      className={`block rounded-lg border border-slate-200 bg-white p-3 shadow-sm transition hover:border-slate-300 hover:shadow ${
+        dormant ? "opacity-60 hover:opacity-100" : ""
+      }`}
     >
+      {grant.availability && (
+        <div className="mb-1.5">
+          <AvailabilityBadge
+            availability={grant.availability}
+            note={grant.availabilityNote}
+            size="xs"
+          />
+        </div>
+      )}
       <div className="text-sm font-medium text-slate-900">{grant.name}</div>
       <div className="mt-0.5 truncate text-xs text-slate-500">
         {grant.funder || "Unknown funder"}
