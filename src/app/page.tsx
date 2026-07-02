@@ -107,6 +107,53 @@ export default async function Dashboard() {
             />
           </div>
 
+          <section className="rounded-xl border border-slate-200 bg-white p-5">
+            <div className="mb-2 flex items-center justify-between">
+              <div>
+                <h2 className="text-sm font-semibold text-slate-900">Priority actions</h2>
+                <p className="text-xs text-slate-500">
+                  What to work on next across the pipeline, ranked by urgency.
+                </p>
+              </div>
+              <Link href="/pipeline" className="text-xs text-slate-400 hover:text-slate-600">
+                View pipeline →
+              </Link>
+            </div>
+            {digest.length === 0 ? (
+              <Empty>Nothing needs attention — every active grant is scored, drafted, and ready.</Empty>
+            ) : (
+              <ul className="divide-y divide-slate-100">
+                {digest.map((item) => {
+                  const tier = TIER_STYLES[item.tier];
+                  return (
+                    <li key={item.grantId}>
+                      <Link
+                        href={`/grants/${item.grantId}`}
+                        className="flex items-center justify-between gap-3 px-1 py-2.5 hover:bg-slate-50"
+                      >
+                        <div className="flex min-w-0 items-start gap-2.5">
+                          <span className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${tier.dot}`} />
+                          <div className="min-w-0">
+                            <div className="truncate text-sm font-medium text-slate-800">
+                              {item.grantName}
+                            </div>
+                            <div className="text-xs text-slate-500">
+                              {item.reason} ·{" "}
+                              <span className={tier.label}>{item.deadlineLabel}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <span className="ml-3 shrink-0 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-medium text-indigo-700">
+                          {item.action}
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+
           <div className="grid gap-6 lg:grid-cols-2">
             <Panel title="Upcoming deadlines" href="/pipeline">
               {upcoming.length === 0 ? (
