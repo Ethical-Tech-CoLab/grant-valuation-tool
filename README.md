@@ -33,6 +33,7 @@ Feature highlights (drawn from leading grant-management platforms):
 | **Deadline tracking** | Foundant | Due-soon flags and an upcoming-deadlines panel. |
 | **Post-award tracking** | AmpliFund, Blackbaud | Awarded grants get reporting requirements, budget-utilization, and outcome notes. |
 | **Dashboard analytics** | Fluxx | Pipeline value, weighted expected value, win rate, and top prospects at a glance. |
+| **Priority actions digest** | Instrumentl task feeds | A cross-pipeline, deadline-aware to-do list on the dashboard: it finds each active grant's most pressing gap (not scored, no draft, no tips, deadline slipping) and ranks them, so the team always sees what to work on next. |
 
 ## Getting started
 
