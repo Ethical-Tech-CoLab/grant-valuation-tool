@@ -1,10 +1,17 @@
 # ETC Grant Valuator
 
+**🌐 Live overview: [ethical-tech-colab.github.io/grant-valuation-tool](https://ethical-tech-colab.github.io/grant-valuation-tool/)**
+
 An AI-assisted grant **valuation and pipeline** tool for the
 [NYU Ethical Tech CoLab](https://ethical-tech-colab.github.io/website/) — a
 research collaboration between NYU's Center for Global Affairs and Microsoft
 Research. Capture prospective grants, let Claude score each one against ETC's
 mission, and track the winners from application through to reporting and outcomes.
+
+> The link above is a static overview page (hosted on GitHub Pages). The full
+> tool — AI scoring, web import, and proposal drafting — needs a Node server and
+> an `ANTHROPIC_API_KEY`; run it locally with `npm run dev` or deploy it to a
+> host such as Vercel (see [Getting started](#getting-started)).
 
 Built with Next.js 16, React 19, Tailwind v4, and the Anthropic SDK — matching
 the ETC website stack.
