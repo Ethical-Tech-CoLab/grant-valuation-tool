@@ -1,0 +1,2 @@
+:HL["/grant-valuation-tool/_next/static/chunks/0to3y2w0v2yut.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"grants","param":null,"prefetchHints":0,"slots":{"children":{"name":"id","param":{"type":"d","key":"a1000000-0000-4000-8000-000000000001","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"qiwFV4ekkn0SPNIvIgMCb"}

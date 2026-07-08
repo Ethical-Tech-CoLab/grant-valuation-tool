@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[22016,["/grant-valuation-tool/_next/static/chunks/3rdqn8rx95pw7.js","/grant-valuation-tool/_next/static/chunks/14mrh2-p_w84d.js","/grant-valuation-tool/_next/static/chunks/3ucr0njuur_34.js"],""]
+3:I[85359,["/grant-valuation-tool/_next/static/chunks/3rdqn8rx95pw7.js","/grant-valuation-tool/_next/static/chunks/14mrh2-p_w84d.js","/grant-valuation-tool/_next/static/chunks/3ucr0njuur_34.js"],"default"]
+4:I[97367,["/grant-valuation-tool/_next/static/chunks/3rdqn8rx95pw7.js","/grant-valuation-tool/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"mx-auto max-w-3xl","children":[["$","$L2",null,{"href":"/pipeline","className":"text-sm text-slate-500 hover:text-slate-700","children":"← Back to pipeline"}],["$","h1",null,{"className":"mt-2 text-2xl font-semibold text-slate-900","children":"Discover grants"}],["$","p",null,{"className":"mt-1 text-sm text-slate-500","children":"Search the web for new funding opportunities that match ETC's mission and current projects. Import the promising ones straight into your pipeline."}],["$","div",null,{"className":"mt-6","children":["$","$L3",null,{"enabled":true}]}]]}],[["$","script","script-0",{"src":"/grant-valuation-tool/_next/static/chunks/3ucr0njuur_34.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"qiwFV4ekkn0SPNIvIgMCb"}
+6:null
