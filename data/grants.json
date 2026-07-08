@@ -1535,23 +1535,86 @@
   {
     "id": "f3fc573c-d05e-4516-b866-bc899100df32",
     "name": "Displaced Livelihoods Initiative (DLI) Grants 2026",
-    "funder": "Displaced Livelihoods Initiative",
+    "funder": "Innovations for Poverty Action (IPA) & J-PAL — Displaced Livelihoods Initiative (funded by the IKEA Foundation)",
     "amount": 250000,
     "deadline": "2026-07-24",
-    "url": "https://opportunitiesforyouth.org/2026/04/22/dli-grants",
-    "description": "Grants supporting livelihoods for refugees, IDPs, and displacement-affected communities. Surfaced via Tavily discovery; source was an aggregator — verify on the funder's official site before pursuing.",
+    "url": "https://poverty-action.org/publication/call-proposals-displaced-livelihoods-initiative",
+    "description": "Round V (2026) call for proposals from the Displaced Livelihoods Initiative (DLI), managed by Innovations for Poverty Action (IPA) and the Abdul Latif Jameel Poverty Action Lab (J-PAL) and funded by the IKEA Foundation. DLI funds rigorous impact evaluations and related research on sustainable livelihoods for displacement-affected populations — refugees, asylum-seekers, stateless people, IDPs, and the communities hosting them. Grant types & maximum awards: Exploratory $10K; Pilot $75K; Full study $250K; Infrastructure & public goods $250K; Evidence Use (refugee-led orgs / researchers with lived experience) $20K; Conference Travel $4K. Off-cycle proposals up to $75K with time-sensitive justification. Priority research areas: resilience, wage employment, entrepreneurship, social cohesion & norms, rights & regulations, and measurement/design — explicitly including how data science, machine learning, satellite imagery, and AI can improve impact measurement (a natural entry point for ETC).",
     "focusAreas": [
-      "migration",
+      "forced displacement",
       "refugees",
       "IDPs",
-      "livelihoods"
+      "host communities",
+      "sustainable livelihoods",
+      "impact evaluation",
+      "economic inclusion"
     ],
-    "availability": "open",
-    "availabilityNote": "Discovery hit — deadline 2026-07-24; VERIFY on official funder site (aggregator source)",
-    "orgLinkedIn": "",
+    "availability": "closed",
+    "availabilityNote": "Round V main track is closed to new applicants — the mandatory Expression of Interest was due May 15, 2026 (now passed). Full proposals (for those who filed an EOI) are due Jul 24, 2026. Off-cycle proposals up to $75K remain possible with time-sensitive justification via displacement@poverty-action.org.",
+    "orgLinkedIn": "https://www.linkedin.com/company/innovations-for-poverty-action/",
     "people": [],
-    "logistics": null,
-    "reviewCriteria": [],
+    "logistics": {
+      "decisionTimeline": "Proposals reviewed after each round by a rotating group of academic (and sometimes policy) reviewers; DLI does not publish a fixed decision date.",
+      "grantPeriod": "Varies by project type (exploratory through multi-year full studies).",
+      "keyDates": [
+        {
+          "label": "Competitive round announced",
+          "date": "2026-04-15"
+        },
+        {
+          "label": "Mandatory Expression of Interest deadline",
+          "date": "2026-05-15"
+        },
+        {
+          "label": "Full proposal deadline",
+          "date": "2026-07-24"
+        }
+      ],
+      "constraints": [
+        "Research team must include at least one member whose primary affiliation is a university (NYU qualifies).",
+        "Mandatory Expression of Interest was required (due May 15, 2026) before a full proposal.",
+        "All local/national/international ethics (IRB) approvals required before fieldwork; extra ethical care given the target population's vulnerability.",
+        "Funded impact evaluations must collect cost data for cost-effectiveness analysis and make per-unit program costs public.",
+        "Target group: displacement-affected populations (refugees, asylum-seekers, stateless, IDPs, and host communities)."
+      ]
+    },
+    "reviewCriteria": [
+      {
+        "criterion": "Academic contribution",
+        "weight": "20% (equally weighted)",
+        "detail": "Significant contribution to knowledge; probes mechanisms (how an intervention has impact); new questions, methods, measures, or interventions; bridges practical experiment and economic theory."
+      },
+      {
+        "criterion": "Policy relevance",
+        "weight": "20% (equally weighted)",
+        "detail": "Addresses DLI's priority research areas; real demand from policymakers/practitioners; generalizable 'lessons learned'; considers cost and whether the intervention scales."
+      },
+      {
+        "criterion": "Technical design",
+        "weight": "20% (equally weighted)",
+        "detail": "Research design appropriately answers the questions; identifies and addresses threats to validity; full-study designs are powered to detect results."
+      },
+      {
+        "criterion": "Project viability",
+        "weight": "20% (equally weighted)",
+        "detail": "Strong, durable implementing-partner relationship and track record; logistical/political/ethics feasibility; pilots show a path to a full evaluation; infrastructure projects show how they enable future research."
+      },
+      {
+        "criterion": "Value for money",
+        "weight": "20% (equally weighted)",
+        "detail": "Study cost is commensurate with expected scientific and policy contribution; leverages funding from other sources."
+      },
+      {
+        "criterion": "Ethics (additional consideration)",
+        "weight": "Considered",
+        "detail": "Risk of harm to participants/staff and mitigation strategy; all approvals secured before fieldwork; heightened care given the target population's vulnerability."
+      },
+      {
+        "criterion": "Team diversity & lived experience (additional consideration)",
+        "weight": "Considered",
+        "detail": "Encourages diverse, cross-disciplinary teams; Round V earmarks additional funding for teams including researchers with lived experience of displacement and for evaluations of refugee-led organizations."
+      }
+    ],
     "fundedExamples": [],
     "stage": "prospect",
     "scoring": null,
@@ -1559,7 +1622,24 @@
     "recommendations": null,
     "award": null,
     "createdAt": "2026-07-01T21:21:42.223Z",
-    "updatedAt": "2026-07-01T21:21:42.223Z"
+    "updatedAt": "2026-07-08T16:18:12.368Z",
+    "submission": {
+      "mechanism": "Two-stage: mandatory Expression of Interest, then a full proposal by the round deadline. Off-cycle proposals (≤$75K) accepted with time-sensitive justification.",
+      "formUrl": "",
+      "steps": [
+        "Choose the grant type matching your project stage (Exploratory / Pilot / Full study / Infrastructure & public goods / Evidence Use / Conference Travel).",
+        "Submit the mandatory Expression of Interest (Round V: due May 15, 2026).",
+        "Submit the full proposal (Round V: due July 24, 2026)."
+      ],
+      "materials": [
+        "Full proposal (research question, design)",
+        "For full studies: statistical power estimates",
+        "Budget (with cost data / cost-effectiveness plan)",
+        "Committed implementing-partner details",
+        "Ethics / IRB approvals"
+      ],
+      "notes": "Questions and off-cycle inquiries: displacement@poverty-action.org. IPA/J-PAL can help match practitioners with academic researchers."
+    }
   },
   {
     "id": "adb84ca9-5286-460f-ae50-e0fc0a272bda",
@@ -1582,12 +1662,63 @@
     "logistics": null,
     "reviewCriteria": [],
     "fundedExamples": [],
-    "stage": "prospect",
-    "scoring": null,
+    "stage": "scoring",
+    "scoring": {
+      "overallScore": 52,
+      "recommendation": "consider",
+      "winProbability": 0.12,
+      "expectedValue": 1080000,
+      "criteria": [
+        {
+          "key": "missionAlignment",
+          "label": "Mission alignment",
+          "score": 90,
+          "weight": 0.3,
+          "rationale": "Child/forced labor in critical mineral supply chains maps almost perfectly onto ETC's forced-labor and supply-chain traceability focus areas and its verifiable-ethical-claims work."
+        },
+        {
+          "key": "fundingFit",
+          "label": "Funding fit",
+          "score": 40,
+          "weight": 0.2,
+          "rationale": "ILAB's $9M cooperative agreements typically fund multi-year, field-based program implementation (monitoring, capacity-building in producer countries), not applied research and prototyping; the size and structure poorly match ETC's researcher/staff-time and prototype model."
+        },
+        {
+          "key": "winProbability",
+          "label": "Competitiveness",
+          "score": 25,
+          "weight": 0.2,
+          "rationale": "ILAB awards overwhelmingly go to established international-development implementers (ILO, Verité, Winrock, Solidarity Center) with on-the-ground presence and past DOL performance; ETC would be uncompetitive as a lead but plausible as a tech/traceability subrecipient."
+        },
+        {
+          "key": "effort",
+          "label": "Effort / feasibility",
+          "score": 25,
+          "weight": 0.15,
+          "rationale": "Federal cooperative agreements demand heavy proposals—detailed logframes, monitoring/evaluation plans, extensive budgets, past-performance narratives—and onerous reporting, straining ETC's limited grant-writing bandwidth."
+        },
+        {
+          "key": "strategicValue",
+          "label": "Strategic value",
+          "score": 55,
+          "weight": 0.15,
+          "rationale": "A federal DOL award would meaningfully elevate ETC's forced-labor/traceability portfolio and open institutional relationships, but the strategic upside is more realistic through a partnering role than a solo lead."
+        }
+      ],
+      "redFlags": [
+        "Scope mismatch: ILAB funds large-scale international program implementation and field monitoring, not lab-to-field prototyping—likely requires on-the-ground operations in mineral-producing countries outside ETC's wheelhouse.",
+        "$9M award size implies extensive field staffing and subgrantee management ETC is not structured to lead.",
+        "Eligibility and scoring strongly favor organizations with prior DOL/ILAB past performance and international field presence; ETC has none as lead.",
+        "Heavy federal application and compliance/reporting burden relative to ETC's bandwidth."
+      ],
+      "summary": "The topical fit is excellent—this is squarely ETC's forced-labor and supply-chain traceability terrain—but the grant is a large federal implementation cooperative agreement, not an applied-research/prototyping award, and ILAB overwhelmingly funds experienced international-development implementers with field presence. ETC should not pursue this as a lead; instead explore joining a lead implementer's consortium as the traceability/tech-prototyping partner, where its NYU CGA + Microsoft Research credibility adds distinctive value at manageable effort.",
+      "model": "claude-opus-4-8",
+      "scoredAt": "2026-07-08T14:46:25.546Z"
+    },
     "proposal": null,
     "recommendations": null,
     "award": null,
     "createdAt": "2026-07-01T21:21:42.255Z",
-    "updatedAt": "2026-07-01T22:05:13.526Z"
+    "updatedAt": "2026-07-08T14:46:25.548Z"
   }
 ]
