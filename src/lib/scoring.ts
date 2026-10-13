@@ -1,8 +1,10 @@
 // AI-assisted grant valuation.
 //
 // Sends a grant + the ETC mission profile to Claude and gets back a structured
-// valuation: a weighted fit score, win probability, per-criterion breakdown,
-// red flags, and a recommendation. Runs server-side only (uses ANTHROPIC_API_KEY).
+// valuation: per-criterion scores, win probability, red flags, and a
+// recommendation. The weighted fit score is then computed here, in code, from
+// the model's per-criterion scores and the fixed target weights in mission.ts.
+// Runs server-side only (uses ANTHROPIC_API_KEY).
 
 import "server-only";
 import Anthropic from "@anthropic-ai/sdk";
@@ -17,7 +19,9 @@ const CriterionSchema = z.object({
   key: z.string().describe("stable key, e.g. missionAlignment"),
   label: z.string().describe("human-readable criterion name"),
   score: z.number().describe("0-100, how well this grant scores on this criterion"),
-  weight: z.number().describe("relative weight 0.0-1.0; all weights should sum to ~1.0"),
+  weight: z
+    .number()
+    .describe("relative weight 0.0-1.0, matching the target weight given for this criterion"),
   rationale: z.string().describe("one or two sentences justifying the score"),
 });
 
@@ -54,9 +58,9 @@ function buildPrompt(grant: Grant): string {
     `Constraints: ${m.constraints.join("; ")}`,
     `Breadth: ${m.breadth}`,
     "",
-    "## Evaluation criteria (score each 0-100 and assign a weight)",
+    "## Evaluation criteria (score each 0-100; use exactly these keys and weights)",
     ...m.criteria.map(
-      (c) => `- ${c.label} (${c.key}, target weight ~${c.targetWeight}): ${c.guidance}`,
+      (c) => `- ${c.label} (key: ${c.key}, weight: ${c.targetWeight}): ${c.guidance}`,
     ),
     "",
     "## Grant opportunity",
@@ -82,7 +86,7 @@ function buildPrompt(grant: Grant): string {
         ].join("\n")
       : "",
     "## Instructions",
-    "- overallScore must be the weight-weighted average of the criteria scores.",
+    "- Return exactly one criteria entry per key listed above, with the given weight. The software recomputes overallScore as the weighted average of your criteria scores, so make the per-criterion scores carry your judgment.",
     "- Be honest and specific; ETC has limited grant-writing bandwidth, so effort cost matters.",
     "- winProbability should reflect ETC's realistic competitiveness, not just fit.",
     "- List concrete red flags (eligibility mismatch, wrong funding type, unrealistic scope). Empty array if none.",
@@ -126,24 +130,62 @@ export async function scoreGrant(grant: Grant): Promise<ScoringResult> {
   }
 
   const winProbability = clamp01(parsed.winProbability);
+  const criteria = normalizeCriteria(parsed.criteria);
+  const overallScore = weightedScore(criteria);
+
+  if (Math.abs(overallScore - parsed.overallScore) >= 1) {
+    console.warn(
+      `[scoring] model overallScore ${parsed.overallScore} differs from computed ${overallScore}; using computed`,
+    );
+  }
 
   return {
-    overallScore: clampScore(parsed.overallScore),
+    overallScore,
     recommendation: parsed.recommendation,
     winProbability,
-    expectedValue: Math.round((grant.amount || 0) * winProbability),
-    criteria: parsed.criteria.map((c) => ({
-      key: c.key,
-      label: c.label,
-      score: clampScore(c.score),
-      weight: c.weight,
-      rationale: c.rationale,
-    })),
+    // An unpriced opportunity is not a worthless one: keep "unknown" distinct from $0.
+    expectedValue: grant.amount ? Math.round(grant.amount * winProbability) : null,
+    criteria,
     redFlags: parsed.redFlags,
     summary: parsed.summary,
     model: response.model || MODEL,
     scoredAt: new Date().toISOString(),
   };
+}
+
+/**
+ * Third safeguard (after clamping scores and win probability): the criteria
+ * array must contain exactly the five keys declared in mission.ts, each
+ * carrying its fixed target weight. Model-returned weights are discarded, stray
+ * or blank entries are dropped, and a missing criterion is an error rather than
+ * a silently short scorecard.
+ */
+function normalizeCriteria(
+  returned: z.infer<typeof CriterionSchema>[],
+): ScoringResult["criteria"] {
+  return ETC_MISSION.criteria.map((target) => {
+    const match = returned.find((c) => c.key === target.key);
+    if (!match) {
+      throw new Error(
+        `Scoring returned no entry for the "${target.label}" criterion. Try again.`,
+      );
+    }
+    return {
+      key: target.key,
+      label: target.label,
+      score: clampScore(match.score),
+      weight: target.targetWeight,
+      rationale: match.rationale,
+    };
+  });
+}
+
+/** Weighted average of the criterion scores, rounded and clamped to 0-100. */
+export function weightedScore(criteria: { score: number; weight: number }[]): number {
+  const totalWeight = criteria.reduce((sum, c) => sum + c.weight, 0);
+  if (totalWeight <= 0) return 0;
+  const sum = criteria.reduce((acc, c) => acc + c.score * c.weight, 0);
+  return clampScore(sum / totalWeight);
 }
 
 function clamp01(n: number): number {

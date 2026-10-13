@@ -91,7 +91,11 @@ function ScoreDetail({ grant, scoring }: { grant: Grant; scoring: ScoringResult 
         <Metric
           label="Expected value"
           value={formatCurrency(scoring.expectedValue)}
-          hint={`${formatCurrency(grant.amount)} × win prob.`}
+          hint={
+            scoring.expectedValue === null
+              ? "no award amount recorded"
+              : `${formatCurrency(grant.amount)} × win prob.`
+          }
         />
       </div>
 

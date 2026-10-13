@@ -49,20 +49,20 @@ export interface ScoreCriterion {
   label: string;
   /** 0–100 */
   score: number;
-  /** relative weight, 0–1, across all criteria (sums to ~1) */
+  /** fixed target weight from mission.ts, 0–1; the five weights sum to 1 */
   weight: number;
   rationale: string;
 }
 
 /** Full AI valuation of a grant opportunity. */
 export interface ScoringResult {
-  /** 0–100 weighted fit score */
+  /** 0–100 weighted average of the criteria scores, computed server-side */
   overallScore: number;
   recommendation: "pursue" | "consider" | "pass";
   /** 0.0–1.0 estimated probability of winning if we apply */
   winProbability: number;
-  /** amount * winProbability, computed server-side */
-  expectedValue: number;
+  /** amount * winProbability, computed server-side; null when the amount is unknown */
+  expectedValue: number | null;
   criteria: ScoreCriterion[];
   redFlags: string[];
   summary: string;

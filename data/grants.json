@@ -1204,7 +1204,7 @@
       "overallScore": 22,
       "recommendation": "pass",
       "winProbability": 0.05,
-      "expectedValue": 0,
+      "expectedValue": null,
       "criteria": [
         {
           "key": "missionAlignment",

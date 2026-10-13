@@ -1,6 +1,7 @@
 // Small presentation helpers shared across server and client components.
 
-export function formatCurrency(amount: number): string {
+export function formatCurrency(amount: number | null | undefined): string {
+  if (amount === null || amount === undefined) return "Unpriced";
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",

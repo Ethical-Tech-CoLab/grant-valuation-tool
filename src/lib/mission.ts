@@ -56,8 +56,9 @@ export const ETC_MISSION = {
   breadth:
     "ETC works at the intersection of emerging technology and the human condition. AI is a central but not exclusive tool — data infrastructure, provenance/traceability systems, civic tech, and trust infrastructure are equally in scope. Judge fit against ETC's humanitarian and human-rights focus (migration, forced labor, refugees/IDPs, disaster response, cultural heritage, supply-chain traceability) and its applied-research-plus-prototyping model. Both corporate and foundation funders are welcome — ETC already partners with Microsoft Research. Do NOT penalize a grant simply because it is not AI-specific.",
   /**
-   * Criteria the scorer must evaluate, with target weights. Weights are guidance
-   * for the model; it returns its own per-criterion weights that should sum to ~1.
+   * Criteria the scorer must evaluate, with fixed weights (they sum to 1). The
+   * model returns a 0-100 score per criterion; scoring.ts applies these weights
+   * itself to compute the overall fit score.
    */
   criteria: [
     {
