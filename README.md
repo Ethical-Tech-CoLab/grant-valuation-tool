@@ -140,3 +140,22 @@ SQLite, etc.) — the rest of the app only touches grants through that module.
 
 This is a private ETC tool. Add authentication and move to a database before
 deploying beyond localhost, since the pipeline contains sensitive strategy data.
+
+---
+
+## Peer Review
+
+The full independent academic peer review of `GrantValuator-Paper.md` is in [PEER-REVIEW.md](PEER-REVIEW.md) (also available as [Word](peer-review/grant-valuator-Peer-Review.docx) under [`peer-review/`](peer-review/)).
+
+**Recommendation:** Minor revisions — an unusually well-checked report; every figure in §4 reproduced from `data/grants.json` on the first attempt.
+
+**What the review found:**
+
+- **In 2 of 12 records the overall score is not the weighted average of the model's own criterion scores.** Recomputing from each record's stored criteria: 53.00 → stored 54, and 61.35 → stored 62 (the other two deltas, 48.50 → 49 and 68.50 → 68, are ordinary rounding). `scoreGrant` clamps `overallScore` and `winProbability` but never recomputes the average from the criteria array returned in the same response. A three-line change makes the report's central claim true by construction.
+- **Two-thirds of the portfolio's expected value rests on a single unvalidated estimate.** The $9M ILAB opportunity at 12% contributes $1.08M of the pipeline's $1.62M. §4.4.4 calls it "the largest single contributor to the difference"; it is the majority of the result, and halving the estimate cuts pipeline value by a third.
+- **Win probability is the load-bearing number and nothing calibrates it.** The tool already tracks applications through to award or rejection — the feedback loop is one step from closing and is not closed.
+- **§1.3 asserts fixed weights; §4.3.2 says they are guidance.** The body is correct: the scorer returns its own weights. They matched the targets in all twelve records (verified — every weight vector sums to exactly 1.00), but that is an empirical result, not a guarantee.
+- **`weight` is the one model-returned quantity with no safeguard** — unclamped, unnormalised, and never checked against the five expected criteria keys.
+- Minor: an unpriced opportunity is silently valued at $0 and sorts below a $50k grant at 15%; no stability check (re-scoring the same grant to see whether 71 is reproducible to ±1 or ±8); the scoring model and its settings are never named in the report; no LICENSE.
+
+**Verified against the repository:** 13 opportunities of which 12 are scored; $11.65M headline against the paper's "roughly $11.7 million"; $1.62M probability-weighted against "roughly $1.6 million"; the §4.3.1 worked example (78/80/48/62/85 → 71.05, recorded as 71) exact; expected value reproducing exactly in all twelve records.
