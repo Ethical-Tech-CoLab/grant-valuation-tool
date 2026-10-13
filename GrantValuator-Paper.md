@@ -45,23 +45,27 @@ change, the profile is edited and the judgments change with it.
 fit, competitiveness, effort, and strategic value. Each criterion receives a
 score from 0 to 100 and carries a fixed weight. The weights are 30 per cent,
 20 per cent, 20 per cent, 15 per cent, and 15 per cent respectively, and they
-sum to 100 per cent. The weighted average of the five scores is the
+sum to 100 per cent. The weights are held in code and applied by the software,
+not chosen by the scorer. The weighted average of the five scores is the
 opportunity's overall fit score.
 
 1.4 Two further numbers are produced. Win probability is an estimate, between
 zero and one, of the chance the organisation would actually be awarded the
 grant if it applied. Expected value is the award amount multiplied by that
-probability, and it is the only figure in the tool calculated by the software
-itself rather than judged. A $500,000 opportunity with a one in five chance of
+probability. Both the fit score and the expected value are calculated by the
+software from judged inputs: the fit score from the five criterion scores, the
+expected value from the amount and the probability. A $500,000 opportunity with a one in five chance of
 success is recorded as being worth $100,000 in expectation, which places it
 below a $400,000 opportunity with a one in three chance.
 
 1.5 The scoring is performed by a large language model, a computer system
 trained to read and write text, which is asked to read the organisation's
 profile alongside the description of the grant and return its judgments in a
-fixed structure. The tool does not compute the fit score from a formula of its
-own. It asks the model to apply the weights and it records the reasoning the
-model gives for every individual score.
+fixed structure. The model judges each of the five criteria; the software then
+applies the fixed weights to those five scores to produce the fit score, and
+records the reasoning the model gives for every individual score. An earlier
+revision asked the model to apply the weights itself; section 10.3 explains
+what was found and why that changed.
 
 1.6 Alongside scoring, the tool gathers the surrounding evidence a grant
 decision usually depends on and that is otherwise scattered across browser
@@ -218,25 +222,32 @@ a peripheral one.
 ### 4.3 The arithmetic
 
 4.3.1 The overall fit score is the weighted average of the five criterion
-scores. Each criterion score is multiplied by its weight and the five products
-are added together. Taking an actual entry from the repository's pipeline, one
+scores, computed by the software from the scores the model returns. Each
+criterion score is multiplied by its weight and the five products are added
+together. Taking an actual entry from the repository's pipeline, one
 opportunity was scored 78 on mission alignment, 80 on funding fit, 48 on
 competitiveness, 62 on effort, and 85 on strategic value. Applying the weights
 gives 23.4 plus 16.0 plus 9.6 plus 9.3 plus 12.75, which is 71.05, recorded as
 a fit score of 71.
 
-4.3.2 The weights are described in the code as guidance rather than as a fixed
-formula. The scorer is asked to return its own weight for each criterion,
-subject to the requirement that the weights sum to approximately one. In
-practice, across all twelve scored opportunities held in the repository, the
-returned weights were identical to the target weights in every case, so the
-scorecard has behaved as a fixed instrument. Section 10 returns to why this
-distinction matters.
+4.3.2 The weights are fixed in code. In the revision that produced the twelve
+scored opportunities held in the repository, they were instead given to the
+scorer as guidance, and the scorer was asked to return its own weight for each
+criterion, subject to the requirement that the weights sum to approximately
+one. Across all twelve records the returned weights were identical to the
+target weights in every case, so the scorecard behaved as a fixed instrument.
+That was an empirical result rather than a guarantee, and section 10.3
+explains why the software now enforces it.
 
-4.3.3 Two safeguards are applied by the software after the judgment is
-returned. Any fit score is rounded to a whole number and confined to the range
-0 to 100. Any win probability is confined to the range 0 to 1. These prevent a
-malformed judgment from propagating into the totals as an impossible figure.
+4.3.3 Three safeguards are applied by the software after the judgment is
+returned. Any criterion score is rounded to a whole number and confined to the
+range 0 to 100. Any win probability is confined to the range 0 to 1. And the
+list of criteria is checked against the five declared in the profile: each of
+the five must be present, each takes its fixed weight regardless of what the
+scorer returned, stray or blank entries are dropped, and a missing criterion
+is reported as an error rather than stored as a short scorecard. The fit score
+is then computed from the checked list. These prevent a malformed judgment
+from propagating into the totals as an impossible figure.
 
 ### 4.4 Win probability and expected value
 
@@ -253,6 +264,9 @@ because the field is narrower.
 rounded to the nearest dollar. It is computed by the software from the stored
 amount and the estimated probability, not asserted by the scorer. It is the one
 number in the tool that cannot be argued with once its two inputs are agreed.
+When no award amount is known, the expected value is recorded as unknown and
+shown as "unpriced" rather than as zero, so that an opportunity whose size has
+not been published does not sort below a small one.
 
 4.4.3 The purpose of expected value is to make opportunities of different
 sizes and different odds comparable on a single axis. In the repository's
@@ -266,8 +280,17 @@ it is meaningful only across a portfolio.
 Thirteen opportunities carry a combined headline value of roughly $11.7
 million. The probability-weighted value of the same pipeline is roughly $1.6
 million. Reporting the first figure to a board without the second would be
-misleading, and the largest single contributor to the difference is one
-$9 million government opportunity assessed at a 12 per cent chance of success.
+misleading.
+
+4.4.5 The weighted figure is concentrated. One $9 million government
+opportunity, assessed at a 12 per cent chance of success, contributes
+$1,080,000 of the pipeline's $1,622,500, which is two thirds of the total.
+Without it the probability-weighted pipeline is about $540,000. Halving that
+one estimate to 6 per cent lowers the weighted pipeline to about $1.1 million;
+raising it to 18 per cent lifts it to about $2.2 million. Nothing in the tool
+supports one of those figures over another. Any portfolio total built from
+estimates of this kind should be reported with its largest single contributor
+named, and the dashboard figure should be read with that estimate in mind.
 
 ### 4.5 Recommendation and red flags
 
@@ -525,29 +548,43 @@ enough decided applications to analyse. They are an honest declaration of
 preference, and their most defensible property is that they are written down in
 one place and can be changed deliberately rather than drifting.
 
-10.3 The overall score is asserted, not calculated. This is the most
-significant methodological weakness in the tool, and it deserves to be stated
-plainly. The software instructs the scorer that the overall score must be the
-weighted average of the criterion scores, but it does not recompute that
-average itself. Recalculating the twelve scored opportunities in the repository
-from their own criterion scores and weights shows the stated overall score
-agreeing with the exact weighted average to within one point in every case,
-with most differing by less than half a point. The instrument is behaving as
-intended. But it is behaving that way because it was asked to, not because the
-arithmetic is enforced, and that difference matters for a tool whose entire
-claim is that its numbers are traceable.
+10.3 The overall score is now calculated, not asserted. In the revision that
+produced the twelve scored records in the repository, the software instructed
+the scorer that the overall score must be the weighted average of the
+criterion scores, but did not recompute that average itself. Recalculating
+those twelve records from their own criterion scores and weights found the
+stated score within one point of the exact average in every case, and exactly
+right in eight. Two of the remaining four were ordinary rounding (48.5 stored
+as 49, 68.5 stored as 68). Two were not: a weighted average of 53.00 was
+stored as 54, and 61.35 as 62. The errors are small and change no decision,
+but they show that the model's arithmetic was nearly rather than exactly
+right, and that nothing checked it. The software now computes the fit score
+itself from the model's per-criterion scores and the fixed weights, so the
+identity stated in section 4.3.1 holds by construction. The twelve stored
+records are left as they were scored; the two discrepancies are reported here
+as the finding that motivated the change.
 
 10.4 Two recorded assessments contain a stray sixth criterion with a blank or
 placeholder label and a weight of zero. It has no effect on any total, but it
 is a small illustration of the same point: what a structured output guarantees
-is a shape, not a meaning.
+is a shape, not a meaning. The criteria check described in section 4.3.3 now
+drops such entries before a result is stored.
 
-10.5 Why expected value is computed in software. In deliberate contrast to the
-fit score, expected value is calculated by the program from the amount and the
-probability. This was the right dividing line to draw. The inputs are
-judgments; the multiplication is not.
+10.5 Which model, and how it is run. Every record in the repository was scored
+by the model identified in the code as `claude-opus-4-8`, and each stored
+result carries the identifier of the model that produced it. The scorer is run
+with the model's adaptive thinking enabled at high effort, a response limit of
+4,000 tokens, and a structured-output schema that fixes the shape of the
+reply. A re-score on a different model, or with different settings, is not
+directly comparable with these figures, which is why the identifier travels
+with every result. Appendix A reproduces the instructions the scorer is given.
 
-10.6 Why the profile is a single editable file. Putting the organisational
+10.6 Why both totals are computed in software. Expected value is calculated by
+the program from the amount and the probability, and the fit score from the
+criterion scores and the weights. This is the right dividing line to draw. The
+inputs are judgments; the arithmetic is not.
+
+10.7 Why the profile is a single editable file. Putting the organisational
 profile in one place, separate from the scoring machinery, means that
 disagreements about what the organisation is for are conducted where they
 belong, in a statement of purpose, rather than being buried in the mechanics of
@@ -562,7 +599,12 @@ edit it in order to tune how the scorer judges fit.
 characteristic weaknesses of that method. They are plausible, internally
 consistent, and articulate, and none of those qualities is evidence of
 accuracy. A confidently reasoned win probability of 22 per cent has no
-demonstrated relationship to the true frequency of success.
+demonstrated relationship to the true frequency of success. Nor has the
+stability of the scores been measured: no grant in the repository has been
+scored more than once, so it is not known whether a fit score of 71 would
+come back as 71, or as 65 or 77, on a second run. Re-scoring a few grants
+several times each would be cheap and would bound every comparison this
+report makes. It has not yet been done.
 
 11.2 Win probability is unvalidated and, at present, unvalidatable. The
 recorded pipeline contains no awarded and no rejected grants, so the win rate
@@ -570,9 +612,14 @@ figure on the dashboard is empty and no estimate has ever been checked against
 an outcome. Until several dozen applications have been decided, the
 probabilities should be read as relative rankings rather than as frequencies.
 This is the single largest gap between what the tool displays and what it can
-support.
+support. The tool already records which stage each application reaches, so the
+material for a comparison accumulates by itself; once enough applications have
+been decided, the realised outcomes should be set beside the prior estimates
+and the comparison published alongside this report.
 
-11.3 The overall score is not enforced in software, as set out in section 10.3.
+11.3 The fit score is a weighted average of five judged scores, as set out in
+section 10.3. Enforcing the arithmetic makes the score traceable; it does not
+make the five judgments behind it any more accurate.
 
 11.4 The tool does not know what it has not been told. A grant whose
 description is thin will be scored thinly. The scorer is instructed to evaluate
@@ -594,20 +641,31 @@ moves. The date stamp is the only defence against acting on an old judgment.
 profile are ETC's. Another group could reuse the structure, but none of the
 numbers in this repository would transfer.
 
-11.8 The data store is a single file with no access control, no protection
+11.8 The profile is also the tool's most gameable part. Every judgment flows
+from one editable file, which is what makes the reasoning auditable, and it is
+also what would let someone quietly edit the organisation's stated priorities
+so that a favoured opportunity scores better. The defence is procedural rather
+than technical: the file is version controlled, so every change to it is
+dated and attributed, and a change to the profile should be made in the open
+and followed by a re-score of the pipeline rather than of one grant. A related
+caution applies to the use of scores: a low score is a reason to discuss an
+opportunity, not a verdict that settles it, and it should not be the only
+thing cited when declining a partner's invitation.
+
+11.9 The data store is a single file with no access control, no protection
 against two people writing at once, and no user accounts. The repository states
 that this must be replaced with a proper database and that authentication must
 be added before the tool is deployed anywhere shared, because the pipeline
 contains strategy information about which funders are being approached and how
 likely each is thought to be.
 
-11.9 The tool depends on two external commercial services to do anything
+11.10 The tool depends on two external commercial services to do anything
 beyond manual entry: one that provides access to the language model and one
 that retrieves web pages. Without credentials for the first, scoring, drafting,
 and guidance are disabled and the tool becomes a manual tracker. Without the
 second, import and discovery disappear.
 
-11.10 The publicly visible page for this project is a static overview only.
+11.11 The publicly visible page for this project is a static overview only.
 The working tool requires a server and credentials and runs on the team's own
 machines.
 
@@ -678,6 +736,59 @@ scores carry their reasoning, their date, and the model that produced them, so
 that a colleague can find the sentence they disagree with. For an internal
 research prototype built to support a decision that is usually made without any
 written record at all, that is a reasonable standard to have set.
+
+---
+
+## Appendix A. The scorer's instructions
+
+The prompt is assembled in `src/lib/scoring.ts` from the organisational
+profile, the five criteria, and the grant record. Its fixed parts are
+reproduced here so a reader can judge for themselves what the scorer is being
+nudged towards. The profile text and the grant fields are inserted where
+indicated.
+
+```
+You are a grants strategist for [organisation]. Evaluate whether ETC should
+pursue the grant opportunity below, and value it.
+
+## About ETC
+[mission]
+Focus areas: [list]
+Current projects: [list]
+Strengths: [list]
+Constraints: [list]
+Breadth: [breadth note]
+
+## Evaluation criteria (score each 0-100; use exactly these keys and weights)
+- [label] (key: [key], weight: [weight]): [guidance]   (one line per criterion)
+
+## Grant opportunity
+Name / Funder / Amount / Deadline / URL / Tagged focus areas
+Description / notes: [description, or "(no description provided — evaluate
+conservatively and flag the missing info)"]
+
+## How the funder scores applications (their review criteria)
+(included only when the grant carries review criteria)
+Factor these into competitiveness and win probability — they are what the
+funder actually rewards:
+- [criterion] ([weight]): [detail]
+
+## Instructions
+- Return exactly one criteria entry per key listed above, with the given
+  weight. The software recomputes overallScore as the weighted average of
+  your criteria scores, so make the per-criterion scores carry your judgment.
+- Be honest and specific; ETC has limited grant-writing bandwidth, so effort
+  cost matters.
+- winProbability should reflect ETC's realistic competitiveness, not just fit.
+- List concrete red flags (eligibility mismatch, wrong funding type,
+  unrealistic scope). Empty array if none.
+- Keep the summary decision-useful.
+```
+
+The line about limited grant-writing bandwidth is worth noticing. It is there
+so that the effort criterion is taken seriously, and it may also push effort
+scores down across the board. Whether it does is one of the things a
+stability check (section 11.1) would reveal.
 
 ---
 
