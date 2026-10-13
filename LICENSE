@@ -1,0 +1,73 @@
+ETC Grant Valuator
+Copyright (c) 2026 Ethical Tech CoLab
+
+This repository is dual licensed. Which licence applies depends on which part
+of the repository you are using.
+
+================================================================================
+1. DOCUMENTATION AND DATA
+================================================================================
+
+The following are licensed under the Creative Commons Attribution 4.0
+International licence (CC BY 4.0):
+
+  - all Markdown files, including README.md, GrantValuator-Paper.md,
+    PEER-REVIEW.md, and everything under peer-review/
+  - all files under data/
+
+You are free to share and adapt this material for any purpose, including
+commercially, provided you give appropriate credit, provide a link to the
+licence, and indicate if changes were made.
+
+Full licence text:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+Suggested attribution:
+  "ETC Grant Valuator" by Ethical Tech CoLab, licensed CC BY 4.0.
+  https://github.com/Ethical-Tech-CoLab/grant-valuation-tool
+
+Note on third-party material: funder names, programme descriptions, and
+quoted figures in data/ refer to works owned by others. This licence covers
+this repository's own compilation, structure, analysis, and prose. It does not
+grant rights in the underlying works, which remain with their rights holders.
+
+================================================================================
+2. SOURCE CODE
+================================================================================
+
+The following are licensed under the MIT Licence:
+
+  - all files under src/
+  - all configuration files, including package.json, next.config.ts,
+    tsconfig.json, eslint.config.mjs, and postcss.config.mjs
+
+MIT Licence
+
+Copyright (c) 2026 Ethical Tech CoLab
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+3. NO WARRANTY AS TO ACCURACY
+================================================================================
+
+Neither licence is a warranty of accuracy. The valuations in data/ are
+estimates produced with the assistance of a language model on a stated date
+and have not been validated against grant outcomes. Nothing here is legal,
+financial, or fundraising advice.

@@ -95,37 +95,54 @@ fit.**
 
 `src/lib/scoring.ts` sends a grant plus that profile to Claude
 (`claude-opus-4-8`) and gets back a validated, structured valuation via the
-SDK's structured-outputs helper. Expected value is computed server-side as
-`amount × win probability`.
+SDK's structured-outputs helper. The per-criterion scores, win probability,
+red flags, and recommendation are the model's. The fit score is then computed
+server-side as the weighted average of the five criterion scores using the
+fixed weights in `mission.ts`, and expected value as `amount × win probability`
+(left as "unpriced" when the amount is unknown). The criteria list is checked
+against the five declared keys before a result is stored.
+
+Run `npm run lint` and `npx tsc --noEmit` before pushing.
 
 ## Project layout
 
 ```
 src/
   app/
-    page.tsx                     Dashboard (metrics, deadlines, top prospects)
+    page.tsx                     Dashboard (metrics, deadlines, top prospects, priority digest)
     pipeline/page.tsx            Stage board
-    grants/new/page.tsx          Add-grant form
-    grants/[id]/page.tsx         Grant detail: scoring + award tracking
-    api/grants/…                 REST endpoints (CRUD + /score + /proposal)
+    discover/page.tsx            Discover opportunities from a search query
+    grants/new/page.tsx          Add-grant form (with web import)
+    grants/[id]/page.tsx         Grant detail: scoring, evidence layers, award tracking
+    api/grants/…                 REST endpoints (CRUD + /score, /proposal,
+                                 /recommendations, /related)
     api/prospect/route.ts        Web import (Tavily scrape → Claude structure)
+    api/discover/route.ts        Opportunity discovery (Tavily search → Claude structure)
   lib/
     mission.ts                   ETC profile & scoring criteria  ← tune this
-    scoring.ts                   Anthropic valuation engine
+    scoring.ts                   Anthropic valuation engine (fit score computed in code)
     proposal.ts                  Anthropic proposal-draft engine
     recommendations.ts           Anthropic grantseeking tips engine
     prospecting.ts               Tavily + Claude web import
+    discovery.ts                 Tavily + Claude opportunity discovery
+    digest.ts                    Priority-actions digest for the dashboard
     store.ts                     JSON data store
     types.ts                     Domain types
     format.ts                    Presentation helpers
-  components/                    Nav, GrantForm, ScorePanel, AwardPanel, StageBadge
+  components/                    Nav, GrantForm, ScorePanel, ProposalPanel,
+                                 RecommendationsPanel, AwardPanel, and the
+                                 evidence panels (People, ReviewCriteria,
+                                 FundedExamples, Logistics, Coalition,
+                                 Submission, RelatedChallenges)
 ```
 
 ## Data storage
 
-Grants are stored in `data/grants.json` (gitignored — it holds org-specific
-pipeline data). This keeps the app zero-config to run, but the store is **not**
-safe for concurrent writes or multi-user production use. When you're ready to
+Grants are stored in `data/grants.json`. The file is committed so the team
+shares one scored pipeline; it holds org-specific strategy data, so keep the
+repository private if that matters to you. This keeps the app zero-config to
+run, but the store is **not** safe for concurrent writes or multi-user
+production use. When you're ready to
 harden it, replace `src/lib/store.ts` with a real database (Postgres + Prisma,
 SQLite, etc.) — the rest of the app only touches grants through that module.
 
@@ -148,6 +165,14 @@ deploying beyond localhost, since the pipeline contains sensitive strategy data.
 The full independent academic peer review of `GrantValuator-Paper.md` is in [PEER-REVIEW.md](PEER-REVIEW.md) (also available as [Word](peer-review/grant-valuator-Peer-Review.docx) under [`peer-review/`](peer-review/)).
 
 **Recommendation:** Minor revisions — an unusually well-checked report; every figure in §4 reproduced from `data/grants.json` on the first attempt.
+
+**Status (2026-10-12):** the code fixes the review asked for are in. The fit
+score is now computed in software from the criterion scores and fixed weights,
+the criteria list is validated, unpriced grants are no longer valued at $0, the
+paper names the model and settings and reproduces the prompt, and §4.4 reports
+the concentration of the pipeline's expected value. Still open: a stability
+check (re-scoring the same grants) and the calibration loop, which needs
+decided applications.
 
 **What the review found:**
 
